@@ -19,6 +19,7 @@
                             [
                                 {
                                     text: l('Edit'),
+                                    visible: abp.auth.isGranted('BookStore.Books.Edit'), //CHECK for the PERMISSION
                                     action: function (data) {
                                         editModal.open({ id: data.record.id });
                                     }
