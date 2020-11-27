@@ -12,8 +12,8 @@ namespace Acme.BookStore
              * into multiple profile classes for a better organization. */
             CreateMap<Book, BookDto>();
             CreateMap<CreateUpdateBookDto, Book>();
-
             CreateMap<Author, AuthorDto>();
+            CreateMap<Author, AuthorLookupDto>();
         }
     }
 }

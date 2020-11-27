@@ -51,6 +51,12 @@
                     title: l('Name'),
                     data: "name"
                 },
+                // ADDED the NEW AUTHOR NAME COLUMN
+                {
+                    title: l('Author'),
+                    data: "authorName"
+                },
+
                 {
                     title: l('Type'),
                     data: "type",
@@ -58,6 +64,7 @@
                         return l('Enum:BookType:' + data);
                     }
                 },
+
                 {
                     title: l('PublishDate'),
                     data: "publishDate",
