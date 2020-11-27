@@ -28,7 +28,7 @@ namespace Acme.BookStore.Web
             try
             {
                 Log.Information("Starting web host.");
-                CreateHostBuilder(args).Build().Run();
+               CreateHostBuilder(args).Build().Run();
                 return 0;
             }
             catch (Exception ex)
