@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Authors\Index.cshtml" />
     <Content Remove="Pages\Books\Index.cshtml" />
   </ItemGroup>
 
@@ -61,11 +62,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Authors\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\Books\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\Authors\Index.cshtml" />
     <None Include="Pages\Books\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Authors\Index.cshtml" />
   </ItemGroup>
 
 </Project>
