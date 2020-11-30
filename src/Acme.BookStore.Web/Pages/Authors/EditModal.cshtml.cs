@@ -46,7 +46,7 @@ namespace Acme.BookStore.Web.Pages.Authors
 
             [Required]
             [DataType(DataType.Date)]
-            public DateTime BirthDate { get; set; }
+            public DateTime BirthDate { get; set; } = DateTime.Now;
 
             [TextArea]
             public string ShortBio { get; set; }
