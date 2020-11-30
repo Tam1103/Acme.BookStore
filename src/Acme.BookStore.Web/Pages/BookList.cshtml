@@ -1,0 +1,21 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Acme.BookStore.Localization
+@using Volo.Abp.Users
+@model Acme.BookStore.Web.Pages.IndexModel
+@inject IHtmlLocalizer<BookStoreResource> L
+@inject ICurrentUser CurrentUser
+@section styles {
+    <abp-style-bundle>
+        <abp-style src="/Pages/Index.css" />
+    </abp-style-bundle>
+}
+@section scripts {
+    <abp-script-bundle>
+        <abp-script src="/Pages/Book.js" />
+    </abp-script-bundle>
+}
+<abp-card-body>
+    <abp-table striped-rows="true" id="BooksTable"></abp-table>
+</abp-card-body>
+
