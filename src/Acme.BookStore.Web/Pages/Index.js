@@ -10,34 +10,17 @@
             scrollX: true,
             ajax: abp.libs.datatables.createAjax(acme.bookStore.books.book.getList),
             columnDefs: [
-
                 {
+                    title: l('Name'),
                     data: { name: "name", authorName: "authorName", id: "id" },
                     "render": function (data) {
-                        return '<a  href="/BookList?' + data.id + '&type=name"><span class="list_hshv_name">' + data.name + '</a>'
+                        return  '<a href="booklist?' + data.id + '">'
+                            + '    <div class="panel-text">'
+                            + '        <span>' + data.name + '</span>'
+                            + '    </div>'
+                            + '</a>'
                     }
                 }, 
-
-                //{
-                //    title: l('Name'),
-                //    data: "name"
-                //},
-                //{
-                //    title: l('BirthDate'),
-                //    data: "birthDate",
-                //    render: function (data) {
-                //        return luxon
-                //            .DateTime
-                //            .fromISO(data, {
-                //                locale: abp.localization.currentCulture.name
-                //            }).toLocaleString();
-                //    }
-                //},
-                  {
-                    title: l('Name'),
-                    data: "name"
-                },
-                // ADDED the NEW AUTHOR NAME COLUMN
                 {
                     title: l('Author'),
                     data: "authorName"

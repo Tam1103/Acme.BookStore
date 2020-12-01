@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ABPBlog.Web.Pages
+namespace Acme.BookStore.Web.Pages.Books
 {
-    public class PostListModel : PageModel
+    public class BookDetailModel : PageModel
     {
         public void OnGet()
         {
