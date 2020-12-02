@@ -38,7 +38,6 @@ namespace Acme.BookStore.Books
 
         public override async Task<BookDto> GetAsync(Guid id)
         {
-
             //Prepare a query to join books and authors
             var query = from book in Repository
                         join author in _authorRepository on book.AuthorId equals author.Id
@@ -58,8 +57,7 @@ namespace Acme.BookStore.Books
 
         }
 
-        public override async Task<PagedResultDto<BookDto>>
-            GetListAsync(PagedAndSortedResultRequestDto input)
+        public override async Task<PagedResultDto<BookDto>>GetListAsync(PagedAndSortedResultRequestDto input)
         {
             //Prepare a query to join books and authors
             var query = from book in Repository

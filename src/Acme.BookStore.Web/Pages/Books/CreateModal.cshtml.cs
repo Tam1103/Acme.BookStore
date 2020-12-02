@@ -8,6 +8,9 @@ using Acme.BookStore.Books;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
+using Acme.BookStore.Blob;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace Acme.BookStore.Web.Pages.Books
 {
@@ -20,10 +23,12 @@ namespace Acme.BookStore.Web.Pages.Books
 
         private readonly IBookAppService _bookAppService;
 
-        public CreateModalModel(
-            IBookAppService bookAppService)
+        private readonly IFileAppService _fileAppService;
+
+        public CreateModalModel(IBookAppService bookAppService, IFileAppService fileAppService)
         {
             _bookAppService = bookAppService;
+            _fileAppService = fileAppService;
         }
 
         public async Task OnGetAsync()
@@ -38,9 +43,22 @@ namespace Acme.BookStore.Web.Pages.Books
 
         public async Task<IActionResult> OnPostAsync()
         {
-            await _bookAppService.CreateAsync(
-                ObjectMapper.Map<CreateBookViewModel, CreateUpdateBookDto>(Book)
+            var dto = ObjectMapper.Map<CreateBookViewModel, CreateUpdateBookDto>(Book);
+            string nameImage = "Img" + Guid.NewGuid() + ".png";
+            using (var memoryStream = new MemoryStream())
+            {
+                await Book.File.CopyToAsync(memoryStream);
+
+                await _fileAppService.SaveBlobAsync(
+                    new SaveBlobInputDto
+                    {
+                        Name = nameImage,
+                        Content = memoryStream.ToArray()
+                    }
                 );
+            }
+            dto.Image = nameImage;
+            await _bookAppService.CreateAsync(dto);
             return NoContent();
         }
 
@@ -53,6 +71,13 @@ namespace Acme.BookStore.Web.Pages.Books
             [Required]
             [StringLength(128)]
             public string Name { get; set; }
+
+            [HiddenInput]
+            public string Image { get; set; }
+
+            [Required]
+            [Display(Name = "File")]
+            public IFormFile File { get; set; }
 
             [Required]
             public BookType Type { get; set; } = BookType.Undefined;
