@@ -1,3 +1,17 @@
 ﻿body {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif!important;
 }
+
+collapse navbar-collapse{
+    display: flex!important;
+    align-items: flex-end;
+    flex-wrap:wrap;
+    justify-content:right;
+}
+nav#main-navbar a {
+    color: #28a745;
+}
+
+nav#main-navbar a:hover{
+   color:#ffffff;
+} 

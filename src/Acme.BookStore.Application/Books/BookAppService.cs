@@ -12,7 +12,6 @@ using Volo.Abp.Domain.Repositories;
 
 namespace Acme.BookStore.Books
 {
-    [Authorize(BookStorePermissions.Books.Default)]
     public class BookAppService :
         CrudAppService<
             Book, //The Book entity
@@ -39,7 +38,6 @@ namespace Acme.BookStore.Books
 
         public override async Task<BookDto> GetAsync(Guid id)
         {
-            await CheckGetPolicyAsync();
 
             //Prepare a query to join books and authors
             var query = from book in Repository
@@ -63,8 +61,6 @@ namespace Acme.BookStore.Books
         public override async Task<PagedResultDto<BookDto>>
             GetListAsync(PagedAndSortedResultRequestDto input)
         {
-            await CheckGetListPolicyAsync();
-
             //Prepare a query to join books and authors
             var query = from book in Repository
                         join author in _authorRepository on book.AuthorId equals author.Id

@@ -7,9 +7,8 @@
         type: 'GET',
         url: 'api/app/book/' + id
     }).then(function (result) {
-        $("#BooksTable").html('<h6>' + '<h1>' + "Book Name = " + result.name + '</h6>' +
-            '<h6>' + '<h1>' + "Author Name = " + result.authorName + '</h6>' +
-            '<h6>' + '<h1>' + "Price = " + result.price + '</h6>'
-        );
+        $("#name").html( result.name),
+        $("#authorName").html(result.authorName ),
+        $('#price').html(result.price);
     });
 });
