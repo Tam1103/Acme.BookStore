@@ -12,7 +12,7 @@ namespace Acme.BookStore.Authors
 {
     public class EfCoreAuthorRepository
         : EfCoreRepository<BookStoreDbContext, Author, Guid>,
-            IAuthorRepository
+            IBookRepository
     {
         public EfCoreAuthorRepository(
             IDbContextProvider<BookStoreDbContext> dbContextProvider)
