@@ -11,22 +11,23 @@ using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 using Microsoft.AspNetCore.Http;
 using Acme.BookStore.Blob;
 using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Acme.BookStore.Web.Pages.Books
 {
     public class CreateModalModel : BookStorePageModel
     {
+        private IHostingEnvironment ihostingEnvironment;
         [BindProperty]
         public CreateBookViewModel Book { get; set; }
 
         public List<SelectListItem> Authors { get; set; }
-
+        public bool Uploaded { get; set; } = false;
         private readonly IBookAppService _bookAppService;
-        private readonly IFileAppService _fileAppService;
-        public CreateModalModel(IBookAppService bookAppService, IFileAppService fileAppService)
+        public CreateModalModel(IBookAppService bookAppService, IFileAppService fileAppService, IHostingEnvironment _ihostingEnvironment)
         {
             _bookAppService = bookAppService;
-            _fileAppService = fileAppService;
+            ihostingEnvironment = _ihostingEnvironment;
         }
 
         public async Task OnGetAsync()
@@ -42,21 +43,12 @@ namespace Acme.BookStore.Web.Pages.Books
         public async Task<IActionResult> OnPostAsync()
         {
             var dto = ObjectMapper.Map<CreateBookViewModel, CreateUpdateBookDto>(Book);
-            string nameImage = "Img" + Guid.NewGuid() + ".png";
-            using (var memoryStream = new MemoryStream())
-            {
-                await Book.File.CopyToAsync(memoryStream);
 
-                await _fileAppService.SaveBlobAsync(
-                    new SaveBlobInputDto
-                    {
-                        Name = nameImage,
-                        Content = memoryStream.ToArray()
-                    }
-                );
-            }
-            dto.Image = nameImage;
-
+            var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + Book.File.FileName;
+            var path = Path.Combine(this.ihostingEnvironment.WebRootPath, "my-files/host/my-file-container", fileName);
+            var stream = new FileStream(path, FileMode.Create);
+            await Book.File.CopyToAsync(stream);
+            dto.Image = fileName;
             await _bookAppService.CreateAsync(dto);
             return NoContent();
         }
@@ -70,7 +62,9 @@ namespace Acme.BookStore.Web.Pages.Books
             [Required]
             [StringLength(128)]
             public string Name { get; set; }
-
+            
+            [Required]
+            [Display(Name = "Filename")]
             public string Image { get; set; }
 
             [Required]

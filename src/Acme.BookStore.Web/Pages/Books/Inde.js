@@ -55,7 +55,7 @@
                 {
                     title: l('Image'),
                     className: "action_table",
-                    data: "Image", render: function (data) {
+                    data: "image", render: function (data) {
                         return '<img width="100" height="100" src="my-files/host/my-file-container/' + data + '"/>'
                     },
                 },
