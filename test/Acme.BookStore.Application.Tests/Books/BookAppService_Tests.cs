@@ -37,7 +37,7 @@ namespace Acme.BookStore.Books
         [Fact]
         public async Task Should_Create_A_Valid_Book()
         {
-            var authors = await _authorAppService.GetListAsync(new GetAuthorListDto());
+            var authors = await _authorAppService.GetListAsync(new GetBookListDto());
             var firstAuthor = authors.Items.First();
 
             //Act

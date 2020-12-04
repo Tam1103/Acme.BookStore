@@ -8,9 +8,9 @@ using Acme.BookStore.Books;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
+using Microsoft.AspNetCore.Http;
 using Acme.BookStore.Blob;
 using System.IO;
-using Microsoft.AspNetCore.Http;
 
 namespace Acme.BookStore.Web.Pages.Books
 {
@@ -22,9 +22,7 @@ namespace Acme.BookStore.Web.Pages.Books
         public List<SelectListItem> Authors { get; set; }
 
         private readonly IBookAppService _bookAppService;
-
         private readonly IFileAppService _fileAppService;
-
         public CreateModalModel(IBookAppService bookAppService, IFileAppService fileAppService)
         {
             _bookAppService = bookAppService;
@@ -58,6 +56,7 @@ namespace Acme.BookStore.Web.Pages.Books
                 );
             }
             dto.Image = nameImage;
+
             await _bookAppService.CreateAsync(dto);
             return NoContent();
         }
@@ -72,20 +71,19 @@ namespace Acme.BookStore.Web.Pages.Books
             [StringLength(128)]
             public string Name { get; set; }
 
-            [HiddenInput]
             public string Image { get; set; }
 
             [Required]
             [Display(Name = "File")]
             public IFormFile File { get; set; }
-
+           
             [Required]
             public BookType Type { get; set; } = BookType.Undefined;
 
             [Required]
             [DataType(DataType.Date)]
             public DateTime PublishDate { get; set; } = DateTime.Now;
-
+            
             [Required]
             public float Price { get; set; }
         }

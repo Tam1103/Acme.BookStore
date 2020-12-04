@@ -53,6 +53,7 @@ namespace Acme.BookStore
                 {
                     AuthorId = orwell.Id, // SET THE AUTHOR
                     Name = "1984",
+                    Image = "CV.jpg",
                     Type = BookType.Dystopia,
                     PublishDate = new DateTime(1949, 6, 8),
                     Price = 19.84f
@@ -65,6 +66,7 @@ namespace Acme.BookStore
                 {
                     AuthorId = douglas.Id, // SET THE AUTHOR
                     Name = "The Hitchhiker's Guide to the Galaxy",
+                    Image = "CV.jpg",
                     Type = BookType.ScienceFiction,
                     PublishDate = new DateTime(1995, 9, 27),
                     Price = 42.0f

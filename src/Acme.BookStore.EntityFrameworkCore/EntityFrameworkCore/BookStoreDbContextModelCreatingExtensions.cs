@@ -40,7 +40,7 @@ namespace Acme.BookStore.EntityFrameworkCore
 
                 b.Property(x => x.Name)
                     .IsRequired()
-                    .HasMaxLength(AuthorConsts.MaxNameLength);
+                    .HasMaxLength(BookConsts.MaxNameLength);
 
                 b.HasIndex(x => x.Name);
             });
