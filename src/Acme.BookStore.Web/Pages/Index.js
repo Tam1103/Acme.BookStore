@@ -16,7 +16,7 @@
                     title: l('Book title'),
                     data: { name: "name", id: "id" },
                     "render": function (data) {
-                        return  '<a href="bookdetail?' + data.id + '">'
+                        return  '<a href=bookdetail?' + data.id + '">'
                             + '    <div class="panel-text">'
                             + '        <span>' + data.name + '</span>'
                             + '    </div>'
