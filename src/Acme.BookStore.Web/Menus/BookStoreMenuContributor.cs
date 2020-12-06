@@ -32,7 +32,7 @@ namespace Acme.BookStore.Web.Menus
             var bookStoreMenu = new ApplicationMenuItem(
                 "BooksStore",
                 l["Menu:BookStore"],
-                icon: "fa fa-book"
+                icon: "fas fa-chevron-circle-down"
             );
 
             context.Menu.AddItem(bookStoreMenu);
@@ -56,6 +56,15 @@ namespace Acme.BookStore.Web.Menus
                 ));
             }
 
+            var categoryStoreMenu = new ApplicationMenuItem(
+                "categoryStoreMenu",
+                l["Menu:Category"],
+                icon: "fa fa-book",
+                url: "/Books"
+            );
+
+            context.Menu.AddItem(categoryStoreMenu);
+    
         }
     }
 }

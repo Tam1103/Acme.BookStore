@@ -76,7 +76,7 @@ namespace Acme.BookStore.Web.Pages.Books
             [Display(Name = "File")]
             public IFormFile File { get; set; }
 
-            public BookType Type { get; set; } = BookType.Undefined;
+            public BookType Type { get; set; }
 
             [DataType(DataType.Date)]
             public DateTime PublishDate { get; set; } = DateTime.Now;
