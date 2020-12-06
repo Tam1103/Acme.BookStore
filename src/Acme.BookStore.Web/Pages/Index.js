@@ -29,6 +29,7 @@
                 },
                 {
                     title: l('Action'),
+
                     data: {id: "id" },
                     "render": function (data) {
                         return '<a href="bookdetail?' + data.id + '">'
