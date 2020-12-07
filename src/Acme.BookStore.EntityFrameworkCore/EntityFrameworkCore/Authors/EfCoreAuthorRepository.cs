@@ -41,5 +41,10 @@ namespace Acme.BookStore.Authors
                 .Take(maxResultCount)
                 .ToListAsync();
         }
+
+        public Task GetListAsync(Guid authorID)
+        {
+            return  DbSet.FirstOrDefaultAsync(author => author.Id == authorID);
+        }
     }
 }

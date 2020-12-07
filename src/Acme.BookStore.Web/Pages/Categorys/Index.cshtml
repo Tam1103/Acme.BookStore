@@ -1,0 +1,31 @@
+﻿@page
+@using Acme.BookStore.Localization
+@using Acme.BookStore.Permissions
+@using Acme.BookStore.Web.Pages.Authors
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<BookStoreResource> L
+@inject IAuthorizationService AuthorizationService
+@model IndexModel
+
+@section scripts
+{
+    <abp-script src="/Pages/Categorys/Index.js" />
+}
+@section styles {
+    <abp-style-bundle>
+        <abp-style src="/Pages/Index.css" />
+    </abp-style-bundle>
+}
+
+<div class="container">
+    <div class="p-5 text-center">
+        <div class="badge badge-success h5 rounded mb-4 " role="alert">
+            <h5 class="m-1"> <i class="fas fa-rocket"></i> Authors <strong>Category</strong></h5>
+        </div>
+    </div>
+</div>
+
+<abp-card-body>
+    <abp-table striped-rows="true" id="CategoryTable"></abp-table>
+</abp-card-body>

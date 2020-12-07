@@ -60,11 +60,22 @@ namespace Acme.BookStore.Web.Menus
                 "categoryStoreMenu",
                 l["Menu:Category"],
                 icon: "fa fa-book",
-                url: "/Books"
+                url: "/Categorys"
             );
 
             context.Menu.AddItem(categoryStoreMenu);
-    
-        }
+
+
+            var loginStoreMenu = new ApplicationMenuItem(
+              "loginStoreMenu",
+              l["Login"],
+              icon: "fa fa-book",
+              url: "account/login"
+          );
+            if (!await context.IsGrantedAsync(BookStorePermissions.Authors.Default))
+            {
+                context.Menu.AddItem(loginStoreMenu);
+            }
+}
     }
 }

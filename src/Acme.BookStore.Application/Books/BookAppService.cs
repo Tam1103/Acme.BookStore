@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Acme.BookStore.Authors;
 using Acme.BookStore.Permissions;
-using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.ObjectMapping;
 
 namespace Acme.BookStore.Books
 {
@@ -96,6 +96,12 @@ namespace Acme.BookStore.Books
             return new ListResultDto<AuthorLookupDto>(
                 ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
             );
+        }
+        public List<BookDto> GetListByCategoryId(Guid id)
+        {
+            var myList =  Repository.Where(s => s.AuthorId == id).ToList();
+            //Execute the query and get the book with author
+            return ObjectMapper.Map<List<Book>, List<BookDto>>(myList);
         }
     }
 }

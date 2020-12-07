@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -14,5 +15,6 @@ namespace Acme.BookStore.Books
     {
         // ADD the NEW METHOD
         Task<ListResultDto<AuthorLookupDto>> GetAuthorLookupAsync();
+        List<BookDto> GetListByCategoryId(Guid id);
     }
 }

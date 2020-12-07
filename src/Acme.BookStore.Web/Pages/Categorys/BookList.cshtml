@@ -12,7 +12,7 @@
 }
 @section scripts {
     <abp-script-bundle>
-        <abp-script src="/Pages/BookDetail.js" />
+        <abp-script src="/Pages/Categorys/BookList.js" />
     </abp-script-bundle>
 }
 
@@ -36,7 +36,7 @@
             opacity: 0.7;
         }
 </style>
-<div class="content-wrapper" id="BooksTable">
+<div class="content-wrapper" id="">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -63,24 +63,15 @@
                             <a>Books List</a>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body">
+                        <div class="card-body" id="categoyList">
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>Book title</th>
-                                        <th>Author title</th>
-                                        <th>Price</th>
                                         <th>Image</th>
+                                        <th>Detail</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td id="name">Name</td>
-                                        <td id="AuthorName">AuthorName</td>
-                                        <td id="price">Price</td>
-                                        <td id="Image">Image</td>
-                                    </tr>
-                                </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
