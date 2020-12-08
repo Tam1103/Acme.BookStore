@@ -69,7 +69,7 @@ namespace Acme.BookStore.Web.Menus
             var loginStoreMenu = new ApplicationMenuItem(
               "loginStoreMenu",
               l["Login"],
-              icon: "fa fa-book",
+              icon: "fas fa-sign-in-alt",
               url: "account/login"
           );
             if (!await context.IsGrantedAsync(BookStorePermissions.Authors.Default))

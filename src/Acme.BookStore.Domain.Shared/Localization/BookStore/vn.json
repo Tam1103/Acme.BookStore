@@ -1,8 +1,15 @@
 ﻿{
   "Culture": "vn",
   "Texts": {
+    "Home": "Trang chủ",
+    "Manage your profile":  "Quản lý hồ sơ",
+    "Books": "Tất cả sách",
+    "Detail":  "Chi tiết",
+    "Book list":  "Danh sách thể loại",
     "Menu:Home": "Trang chủ",
+    "Menu:Category": "Danh Mục",
     "Welcome": "Xin chào",
+    "Login": "Đăng nhập",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
     "Menu:BookStore": "Nhà Sách Việt Nam",
     "Menu:Books": "Tât cả sách",
@@ -10,15 +17,16 @@
     "Close": "Đóng",
     "Delete": "Xoá",
     "Edit": "Sửa",
+    "All book":  "Tất cả sách",
     "PublishDate": "Ngày công khai",
     "NewBook": "Sách Mới",
     "Name": "Tên",
     "Type": "Kiểu",
-    "Price": "Giá tiền",
+    "Authors Category": "Danh sách tất cả tác giả",
     "CreationTime": "Tạo thời gian",
     "AreYouSure": "bạn đã chắc chắn?",
     "AreYouSureToDelete": "Bạn đã chắc chắn muốn xoá item này?",
-    "Enum:BookType:0": "Mặc định",
+    "Enum:BookType:0": "Chưa xác định",
     "Enum:BookType:1": "Phiêu lưu",
     "Enum:BookType:2": "Tiểu sử",
     "Enum:BookType:3": "Hành động",
@@ -28,6 +36,10 @@
     "Enum:BookType:7": "Khoa học viễn tưởng",
     "Enum:BookType:8": "Thơ",
 
+    "Welcome to the BookStore": "Chào mừng bạn đến với thư viện sách Việt Nam",
+    "Book title": "Tên Sách",
+    "Author title": "Tên Tác giả",
+    "Action": "Thực thi",
     "Permission:BookStore": "Sách Việt Nam",
     "Permission:Books": "Quản ly sách",
     "Permission:Books.Create": "Tạo mới sách",
@@ -36,7 +48,8 @@
     "BookDeletionConfirmationMessage": "Bạn đã chắc chắn muốn xoá sách '{0}'?",
 
     "BookStore:00001": "Có 1 tác giả với tên: {name}",
-
+    "Price": "Giá tiền",
+    "Image": "Hình ảnh",
     "Permission:Authors": "Quản lý tác giả",
     "Permission:Authors.Create": "Tạo mới tác giả",
     "Permission:Authors.Edit": "Sửa tác giả",
@@ -46,7 +59,7 @@
     "Authors": "Tác giả",
     "AuthorDeletionConfirmationMessage": "Bạn chắc chắn muốn xoá '{0}'?",
     "BirthDate": "Ngày sinh",
-    "NewAuthor": "Toạ mới tác giả"
+    "NewAuthor": "Tạo mới tác giả"
 
   }
 }

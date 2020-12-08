@@ -25,7 +25,7 @@
                 + '    </td>'
 
                 + '    <td>'
-                + '        <a href = "/BookDetail?' + value.id + '" > ' + "Detail" + '</a > '
+                + '        <a href = "/BookDetail?' + value.id + '" > ' + '<i class="fas fa-info-circle">' + '</i>' + '</a > '
                 + '    </td>'
 
                 + '    </tr>'

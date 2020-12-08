@@ -14,6 +14,15 @@
     <abp-script-bundle>
         <abp-script src="/Pages/Categorys/BookList.js" />
     </abp-script-bundle>
+    <script type="text/javascript">
+        (function () {
+            var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+            link.type = 'image/x-icon';
+            link.rel = 'shortcut icon';
+            link.href = '/img/CV.jpg';
+            document.getElementsByTagName('head')[0].appendChild(link);
+        })();
+    </script>
 }
 
 @*<abp-card-body>
@@ -36,18 +45,18 @@
             opacity: 0.7;
         }
 </style>
-<div class="content-wrapper" id="">
+<div class="content-wrapper" id="BooksTable">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Book List</h1>
+                    <h1>@L["Book list"]</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Books</li>
+                        <li class="breadcrumb-item"><a href="#">@L["Home"]</a></li>
+                        <li class="breadcrumb-item active">@L["Books"]</li>
                     </ol>
                 </div>
             </div>
@@ -67,9 +76,9 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Book title</th>
-                                        <th>Image</th>
-                                        <th>Detail</th>
+                                        <th>@L["Book title"]</th>
+                                        <th>@L["Image"]</th>
+                                        <th>@L["Detail"]</th>
                                     </tr>
                                 </thead>
                             </table>

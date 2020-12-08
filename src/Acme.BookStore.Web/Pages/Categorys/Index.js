@@ -32,7 +32,18 @@
                                 locale: abp.localization.currentCulture.name
                             }).toLocaleString();
                     }
-                }
+                },
+                {
+                    title: l('Detail'),
+                    data: { name: "name", id: "id" },
+                    "render": function (data) {
+                        return '<a href="categorys/booklist?' + data.id + '">'
+                            + '    <div class="panel-text">'
+                            + '        <span>' + l('All book') + '</span>'
+                            + '    </div>'
+                            + '</a>'
+                    }
+                }, 
             ]
         })
     );
