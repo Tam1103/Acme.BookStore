@@ -1,5 +1,6 @@
 ﻿using Acme.BookStore.Authors;
 using Acme.BookStore.Books;
+using Acme.BookStore.Slides;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
@@ -41,6 +42,20 @@ namespace Acme.BookStore.EntityFrameworkCore
                 b.Property(x => x.Name)
                     .IsRequired()
                     .HasMaxLength(BookConsts.MaxNameLength);
+
+                b.HasIndex(x => x.Name);
+            });
+
+            builder.Entity<Slide>(b =>
+            {
+                b.ToTable(BookStoreConsts.DbTablePrefix + "Slides",
+                    BookStoreConsts.DbSchema);
+
+                b.ConfigureByConvention();
+
+                b.Property(x => x.Name)
+                    .IsRequired()
+                    .HasMaxLength(SlideConsts.MaxNameLength);
 
                 b.HasIndex(x => x.Name);
             });

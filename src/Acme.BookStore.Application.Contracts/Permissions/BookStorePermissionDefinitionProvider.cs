@@ -14,8 +14,12 @@ namespace Acme.BookStore.Permissions
             booksPermission.AddChild(BookStorePermissions.Books.Create, L("Permission:Books.Create"));
             booksPermission.AddChild(BookStorePermissions.Books.Edit, L("Permission:Books.Edit"));
             booksPermission.AddChild(BookStorePermissions.Books.Delete, L("Permission:Books.Delete"));
-          
-            
+
+            var slidesPermission = bookStoreGroup.AddPermission(BookStorePermissions.Slides.Default, L("Permission:Slides"));
+            slidesPermission.AddChild(BookStorePermissions.Slides.Create, L("Permission:Slides.Create"));
+            slidesPermission.AddChild(BookStorePermissions.Slides.Edit, L("Permission:Slides.Edit"));
+            slidesPermission.AddChild(BookStorePermissions.Slides.Delete, L("Permission:Slides.Delete"));
+
             var authorsPermission = bookStoreGroup.AddPermission(
                 BookStorePermissions.Authors.Default, L("Permission:Authors"));
 
