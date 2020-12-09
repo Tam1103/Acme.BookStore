@@ -17,7 +17,7 @@ namespace Acme.BookStore.Authors
         [Fact]
         public async Task Should_Get_All_Authors_Without_Any_Filter()
         {
-            var result = await _authorAppService.GetListAsync(new GetBookListDto());
+            var result = await _authorAppService.GetListAsync(new GetAuthorListDto());
 
             result.TotalCount.ShouldBeGreaterThanOrEqualTo(2);
             result.Items.ShouldContain(author => author.Name == "George Orwell");
@@ -28,7 +28,7 @@ namespace Acme.BookStore.Authors
         public async Task Should_Get_Filtered_Authors()
         {
             var result = await _authorAppService.GetListAsync(
-                new GetBookListDto { Filter = "George" });
+                new GetAuthorListDto { Filter = "George" });
 
             result.TotalCount.ShouldBeGreaterThanOrEqualTo(1);
             result.Items.ShouldContain(author => author.Name == "George Orwell");
@@ -54,7 +54,7 @@ namespace Acme.BookStore.Authors
         [Fact]
         public async Task Should_Not_Allow_To_Create_Duplicate_Author()
         {
-            await Assert.ThrowsAsync<BookAlreadyExistsException>(async () =>
+            await Assert.ThrowsAsync<AuthorAlreadyExistsException>(async () =>
             {
                 await _authorAppService.CreateAsync(
                     new CreateAuthorDto
