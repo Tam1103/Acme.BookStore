@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Acme.BookStore.Slides;
+﻿using Acme.BookStore.Slides;
 using Acme.BookStore.Permissions;
+using System;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
-using Volo.Abp.ObjectMapping;
 
-namespace Acme.BookStore.Books
+namespace Acme.BookStore.Slides
 {
     public class SlideAppService :
         CrudAppService<
@@ -18,17 +14,17 @@ namespace Acme.BookStore.Books
             SlideDto, //Used to show books
             Guid, //Primary key of the book entity
             PagedAndSortedResultRequestDto, //Used for paging/sorting
-            CreateUpdateBookDto>, //Used to create/update a book
+            CreateUpdateSlideDto>, //Used to create/update a book
         ISlideAppService //implement the ISlideAppService
     {
-        private readonly ISlideRepository _Repository;
+        private readonly ISlideAppService _slideAppService;
 
         public SlideAppService(
-            IRepository<Book, Guid> repository,
-            IAuthorRepository authorRepository)
+            IRepository<Slide, Guid> repository,
+            ISlideAppService slideAppService)
             : base(repository)
         {
-            _authorRepository = authorRepository;
+            _slideAppService = slideAppService;
             GetPolicyName = BookStorePermissions.Books.Default;
             GetListPolicyName = BookStorePermissions.Books.Default;
             CreatePolicyName = BookStorePermissions.Books.Create;
@@ -36,72 +32,14 @@ namespace Acme.BookStore.Books
             DeletePolicyName = BookStorePermissions.Books.Create;
         }
 
-        public override async Task<BookDto> GetAsync(Guid id)
+        public async Task<SlideDto> GetAsync(Guid id)
         {
-            //Prepare a query to join books and authors
-            var query = from book in Repository
-                        join author in _authorRepository on book.AuthorId equals author.Id
-                        where book.Id == id
-                        select new { book, author };
-
-            //Execute the query and get the book with author
-            var queryResult = await AsyncExecuter.FirstOrDefaultAsync(query);
-            if (queryResult == null)
-            {
-                throw new EntityNotFoundException(typeof(Book), id);
-            }
-
-            var bookDto = ObjectMapper.Map<Book, BookDto>(queryResult.book);
-            bookDto.AuthorName = queryResult.author.Name;
-            return bookDto;
-
+            var slide = await _slideAppService.GetAsync(id);
+            return slide;
         }
-
-        public override async Task<PagedResultDto<BookDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        public async Task<PagedResultDto<SlideDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
-            //Prepare a query to join books and authors
-            var query = from book in Repository
-                        join author in _authorRepository on book.AuthorId equals author.Id
-                        orderby input.Sorting
-                        select new { book, author };
-
-            query = query
-                .Skip(input.SkipCount)
-                .Take(input.MaxResultCount);
-
-            //Execute the query and get a list
-            var queryResult = await AsyncExecuter.ToListAsync(query);
-
-            //Convert the query result to a list of BookDto objects
-            var bookDtos = queryResult.Select(x =>
-            {
-                var bookDto = ObjectMapper.Map<Book, BookDto>(x.book);
-                bookDto.AuthorName = x.author.Name;
-                return bookDto;
-            }).ToList();
-
-            //Get the total count with another query
-            var totalCount = await Repository.GetCountAsync();
-
-            return new PagedResultDto<BookDto>(
-                totalCount,
-                bookDtos
-            );
-        }
-
-        public async Task<ListResultDto<AuthorLookupDto>> GetAuthorLookupAsync()
-        {
-            var authors = await _authorRepository.GetListAsync();
-
-            return new ListResultDto<AuthorLookupDto>(
-                ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
-            );
-        }
-        public List<BookDto> GetListByCategoryId(Guid id)
-        {
-            var myList = Repository.Where(s => s.AuthorId == id).ToList();
-            //Execute the query and get the book with author
-            return ObjectMapper.Map<List<Book>, List<BookDto>>(myList);
+            return await _slideAppService.GetListAsync(input);
         }
     }
 }
