@@ -27,6 +27,12 @@ namespace Acme.BookStore.Permissions
 
             authorsPermission.AddChild(
                 BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
+
+            var slidesPermission = bookStoreGroup.AddPermission(BookStorePermissions.Slides.Default, L("Permission:Slides"));
+            slidesPermission.AddChild(BookStorePermissions.Slides.Create, L("Permission:Slides.Create"));
+            slidesPermission.AddChild(BookStorePermissions.Slides.Edit, L("Permission:Slides.Edit"));
+            slidesPermission.AddChild(BookStorePermissions.Slides.Delete, L("Permission:Slides.Delete"));
+
         }
 
         private static LocalizableString L(string name)
