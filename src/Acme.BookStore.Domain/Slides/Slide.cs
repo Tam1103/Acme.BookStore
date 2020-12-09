@@ -9,6 +9,5 @@ namespace Acme.BookStore.Slides
         public string Title { get; set; }
         public string Detail { get; set; }
         public float Sale { get; set; }
-
     }
 }

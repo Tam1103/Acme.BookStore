@@ -1,5 +1,7 @@
 ﻿using Acme.BookStore.Books;
 using Acme.BookStore.Authors;
+using Acme.BookStore.Slides;
+
 using AutoMapper;
 namespace Acme.BookStore
 {
@@ -14,6 +16,9 @@ namespace Acme.BookStore
             CreateMap<CreateUpdateBookDto, Book>();
             CreateMap<Author, AuthorDto>();
             CreateMap<Author, AuthorLookupDto>();
+
+            CreateMap<Slide, SlideDto>();
+            CreateMap<CreateUpdateSlideDto, Slide>();
         }
     }
 }

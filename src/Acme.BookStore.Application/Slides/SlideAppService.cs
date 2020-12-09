@@ -1,5 +1,4 @@
-﻿using Acme.BookStore.Slides;
-using Acme.BookStore.Permissions;
+﻿using Acme.BookStore.Permissions;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
@@ -25,21 +24,16 @@ namespace Acme.BookStore.Slides
             : base(repository)
         {
             _slideAppService = slideAppService;
-            GetPolicyName = BookStorePermissions.Books.Default;
-            GetListPolicyName = BookStorePermissions.Books.Default;
-            CreatePolicyName = BookStorePermissions.Books.Create;
-            UpdatePolicyName = BookStorePermissions.Books.Edit;
-            DeletePolicyName = BookStorePermissions.Books.Create;
+            GetPolicyName = BookStorePermissions.Slides.Default;
+            GetListPolicyName = BookStorePermissions.Slides.Default;
+            CreatePolicyName = BookStorePermissions.Slides.Create;
+            UpdatePolicyName = BookStorePermissions.Slides.Edit;
+            DeletePolicyName = BookStorePermissions.Slides.Create;
         }
 
-        public async Task<SlideDto> GetAsync(Guid id)
-        {
-            var slide = await _slideAppService.GetAsync(id);
-            return slide;
-        }
-        public async Task<PagedResultDto<SlideDto>> GetListAsync(PagedAndSortedResultRequestDto input)
-        {
-            return await _slideAppService.GetListAsync(input);
-        }
+        public override async Task<SlideDto> GetAsync(Guid id)
+            => await _slideAppService.GetAsync(id);
+        public override async Task<PagedResultDto<SlideDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+            => await _slideAppService.GetListAsync(input);
     }
 }

@@ -26,6 +26,7 @@
     <Content Remove="Pages\Authors\Index.cshtml" />
     <Content Remove="Pages\Books\AuthorList.cshtml" />
     <Content Remove="Pages\Books\Index.cshtml" />
+    <Content Remove="Pages\Slides\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -72,6 +73,7 @@
     <None Include="Pages\Authors\Index.cshtml" />
     <None Include="Pages\Categorys\Index.cshtml" />
     <None Include="Pages\Books\Index.cshtml" />
+    <None Include="Pages\Slides\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

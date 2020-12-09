@@ -24,7 +24,6 @@ namespace Acme.BookStore.Web.Menus
                 var administration = context.Menu.GetAdministration();
                 administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
             }
-
             var l = context.GetLocalizer<BookStoreResource>();
 
             context.Menu.Items.Insert(0, new ApplicationMenuItem("BookStore.Home", l["Menu:Home"], "~/"));
@@ -34,8 +33,6 @@ namespace Acme.BookStore.Web.Menus
                 l["Menu:BookStore"],
                 icon: "fas fa-chevron-circle-down"
             );
-
-            context.Menu.AddItem(bookStoreMenu);
 
             //CHECK the PERMISSION
             if (await context.IsGrantedAsync(BookStorePermissions.Books.Default))
@@ -56,26 +53,42 @@ namespace Acme.BookStore.Web.Menus
                 ));
             }
 
-            var categoryStoreMenu = new ApplicationMenuItem(
-                "categoryStoreMenu",
-                l["Menu:Category"],
-                icon: "fa fa-book",
-                url: "/Categorys"
-            );
+            if (await context.IsGrantedAsync(BookStorePermissions.Slides.Default))
+            {
+                bookStoreMenu.AddItem(new ApplicationMenuItem(
+                    "BooksStore.Slides",
+                    l["Menu:Slides"],
+                    url: "/Slides"
+                ));
+            }
 
-            context.Menu.AddItem(categoryStoreMenu);
+            context.Menu.AddItem(bookStoreMenu);
 
-
+            #region Login
             var loginStoreMenu = new ApplicationMenuItem(
               "loginStoreMenu",
               l["Login"],
               icon: "fas fa-sign-in-alt",
               url: "account/login"
           );
+
             if (!await context.IsGrantedAsync(BookStorePermissions.Authors.Default))
             {
                 context.Menu.AddItem(loginStoreMenu);
             }
-}
+            #endregion
+            #region Category
+            if (await context.IsGrantedAsync(BookStorePermissions.Authors.Default))
+            {
+                var categoryStoreMenu = new ApplicationMenuItem(
+                "categoryStoreMenu",
+                l["Menu:Category"],
+                icon: "fa fa-book",
+                url: "/Categorys"
+            );
+                context.Menu.AddItem(categoryStoreMenu);
+            }
+            #endregion
+        }
     }
 }

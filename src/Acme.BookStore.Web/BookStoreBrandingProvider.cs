@@ -9,5 +9,5 @@ namespace Acme.BookStore.Web
         public override string AppName => "BookStore";
         public override string LogoUrl => "src/Acme.BookStore.Web/wwwroot/img/CV.jpg";
         public override string LogoReverseUrl => LogoUrl;
-    }
+    }   
 }
