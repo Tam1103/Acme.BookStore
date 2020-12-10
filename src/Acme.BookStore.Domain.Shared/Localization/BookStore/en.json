@@ -5,7 +5,7 @@
     "Welcome": "Welcome",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
     "Menu:BookStore": "Book Store",
-    "Menu:Books": "Books",
+    "Menu:Books": "Books Manage",
     "Actions": "Actions",
     "Close": "Close",
     "Delete": "Delete",
@@ -42,11 +42,14 @@
     "Permission:Authors.Edit": "Editing the authors",
     "Permission:Authors.Delete": "Deleting the authors",
 
-    "Menu:Authors": "Authors",
+    "Menu:Authors": "Authors Manage",
     "Authors": "Authors",
     "AuthorDeletionConfirmationMessage": "Are you sure to delete the author '{0}'?",
     "BirthDate": "Birth date",
-    "NewAuthor": "New author"
+    "NewAuthor": "New author",
 
+    "Menu:Slides": "Slides Manage",
+    "Slides": "Slide",
+    "SlideDeletionConfirmationMessage": "Are you sure to delete the slide '{0}'?"
   }
 }

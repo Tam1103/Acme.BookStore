@@ -20,24 +20,33 @@ namespace Acme.BookStore.Web.Pages.Slides
         [BindProperty]
         public EditSlideViewModel Slide { get; set; }
 
-        private readonly ISlideAppService _SlideAppService;
-        public EditModalModel(ISlideAppService slideAppService)
+        private readonly ISlideAppService _slideAppService;
+        private readonly IHostingEnvironment _ihostingEnvironment;
+        public EditModalModel(ISlideAppService slideAppService, IHostingEnvironment hostingEnvironment)
         {
-            _SlideAppService = slideAppService;
+            _slideAppService = slideAppService;
+            _ihostingEnvironment = hostingEnvironment;
         }
 
         public async Task OnGetAsync(Guid id)
         {
-            var slideDto = await _SlideAppService.GetAsync(id);
+            var slideDto = await _slideAppService.GetAsync(id);
             Slide = ObjectMapper.Map<SlideDto, EditSlideViewModel>(slideDto);
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            await _SlideAppService.UpdateAsync(
+     
+            var dto =  ObjectMapper.Map<EditSlideViewModel, CreateUpdateSlideDto>(Slide);
+
+            var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + Slide.File.FileName;
+            var path = Path.Combine(this._ihostingEnvironment.WebRootPath, "slide", fileName);
+            var stream = new FileStream(path, FileMode.Create);
+            await Slide.File.CopyToAsync(stream);
+            dto.Name = fileName;
+            await _slideAppService.UpdateAsync(
                 Slide.Id,
-                ObjectMapper.Map<EditSlideViewModel, CreateUpdateSlideDto>(Slide)
-            );
+                dto);
 
             return NoContent();
         }
@@ -46,10 +55,11 @@ namespace Acme.BookStore.Web.Pages.Slides
         {
             [HiddenInput]
             public Guid Id { get; set; }
-            [Required]
-            [StringLength(128)]
-            public string Name { get; set; }
 
+            [StringLength(SlideConsts.MaxNameLength)]
+            public string Name { get; set; }
+            [Display(Name = "File")]
+            public IFormFile File { get; set; }
             public string Title { get; set; }
             public string Detail { get; set; }
             public float Sale { get; set; }

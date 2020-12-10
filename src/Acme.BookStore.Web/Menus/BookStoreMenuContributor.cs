@@ -4,7 +4,6 @@ using Acme.BookStore.MultiTenancy;
 using Acme.BookStore.Permissions;
 using Volo.Abp.TenantManagement.Web.Navigation;
 using Volo.Abp.UI.Navigation;
-
 namespace Acme.BookStore.Web.Menus
 {
     public class BookStoreMenuContributor : IMenuContributor
@@ -78,8 +77,6 @@ namespace Acme.BookStore.Web.Menus
             }
             #endregion
             #region Category
-            if (await context.IsGrantedAsync(BookStorePermissions.Authors.Default))
-            {
                 var categoryStoreMenu = new ApplicationMenuItem(
                 "categoryStoreMenu",
                 l["Menu:Category"],
@@ -87,7 +84,6 @@ namespace Acme.BookStore.Web.Menus
                 url: "/Categorys"
             );
                 context.Menu.AddItem(categoryStoreMenu);
-            }
             #endregion
         }
     }

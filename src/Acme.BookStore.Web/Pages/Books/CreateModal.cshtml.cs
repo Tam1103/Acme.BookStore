@@ -60,7 +60,7 @@ namespace Acme.BookStore.Web.Pages.Books
             public Guid AuthorId { get; set; }
 
             [Required]
-            [StringLength(128)]
+            [StringLength(BookConsts.MaxNameLength)]
             public string Name { get; set; }
             
             [Required]

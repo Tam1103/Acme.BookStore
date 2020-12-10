@@ -26,7 +26,7 @@ namespace Acme.BookStore.EntityFrameworkCore
             {
                 b.ToTable(BookStoreConsts.DbTablePrefix + "Books", BookStoreConsts.DbSchema);
                 b.ConfigureByConvention(); //auto configure for the base class props
-                b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+                b.Property(x => x.Name).IsRequired().HasMaxLength(BookConsts.MaxNameLength);
 
                 // ADD THE MAPPING FOR THE RELATION
                 b.HasOne<Author>().WithMany().HasForeignKey(x => x.AuthorId).IsRequired();
@@ -34,23 +34,22 @@ namespace Acme.BookStore.EntityFrameworkCore
 
             builder.Entity<Author>(b =>
             {
-                b.ToTable(BookStoreConsts.DbTablePrefix + "Authors",
-                    BookStoreConsts.DbSchema);
-
+                b.ToTable(BookStoreConsts.DbTablePrefix + "Authors", BookStoreConsts.DbSchema);
                 b.ConfigureByConvention();
-
                 b.Property(x => x.Name)
                     .IsRequired()
-                    .HasMaxLength(BookConsts.MaxNameLength);
-
+                    .HasMaxLength(AuthorConsts.MaxNameLength);
                 b.HasIndex(x => x.Name);
             });
+
+
 
             builder.Entity<Slide>(b =>
             {
                 b.ToTable(BookStoreConsts.DbTablePrefix + "Slides", BookStoreConsts.DbSchema);
                 b.ConfigureByConvention(); //auto configure for the base class props
-                b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+                b.Property(x => x.Name).IsRequired().HasMaxLength(SlideConsts.MaxNameLength);
+                b.HasIndex(x => x.Name);
             });
         }
     }

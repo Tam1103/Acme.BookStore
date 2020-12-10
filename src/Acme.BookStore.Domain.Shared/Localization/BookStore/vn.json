@@ -2,10 +2,10 @@
   "Culture": "vn",
   "Texts": {
     "Home": "Trang chủ",
-    "Manage your profile":  "Quản lý hồ sơ",
+    "Manage your profile": "Quản lý hồ sơ",
     "Books": "Tất cả sách",
-    "Detail":  "Chi tiết",
-    "Book list":  "Danh sách thể loại",
+    "Detail": "Chi tiết",
+    "Book list": "Danh sách thể loại",
     "Menu:Home": "Trang chủ",
     "Menu:Category": "Danh Mục",
     "Welcome": "Xin chào",
@@ -17,7 +17,7 @@
     "Close": "Đóng",
     "Delete": "Xoá",
     "Edit": "Sửa",
-    "All book":  "Tất cả sách",
+    "All book": "Tất cả sách",
     "PublishDate": "Ngày công khai",
     "NewBook": "Sách Mới",
     "Name": "Tên",
@@ -55,11 +55,17 @@
     "Permission:Authors.Edit": "Sửa tác giả",
     "Permission:Authors.Delete": "Xoá tác giả",
 
-    "Menu:Authors": "Tác giả",
+    "Menu:Authors": "Quản lý Tác giả",
     "Authors": "Tác giả",
     "AuthorDeletionConfirmationMessage": "Bạn chắc chắn muốn xoá '{0}'?",
     "BirthDate": "Ngày sinh",
-    "NewAuthor": "Tạo mới tác giả"
+    "NewAuthor": "Tạo mới tác giả",
 
+
+    "Menu:Slides": "Quản lý slide",
+    "SlideDeletionConfirmationMessage": "Bạn chắc chắn muốn xoá '{0}'?",
+    "Sale": "Giảm giá",
+    "Title": "Nội dung",
+    "NewSlide": "Tạo mới slide"
   }
 }

@@ -1,6 +1,10 @@
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Threading.Tasks;
 using Acme.BookStore.Slides;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Acme.BookStore.Web.Pages.Slides
@@ -10,9 +14,11 @@ namespace Acme.BookStore.Web.Pages.Slides
         [BindProperty]
         public CreateSlideViewModel Slide { get; set; }
         private readonly ISlideAppService _slideAppService;
-        public CreateModalModel(ISlideAppService slideAppService)
+        private readonly IHostingEnvironment _ihostingEnvironment;
+        public CreateModalModel(ISlideAppService slideAppService, IHostingEnvironment _ihot)
         {
             _slideAppService = slideAppService;
+            _ihostingEnvironment = _ihot;
         }
 
         public void OnGet()
@@ -22,7 +28,15 @@ namespace Acme.BookStore.Web.Pages.Slides
 
         public async Task<IActionResult> OnPostAsync()
         {
+
             var dto = ObjectMapper.Map<CreateSlideViewModel, CreateUpdateSlideDto>(Slide);
+
+            var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + Slide.File.FileName;
+            var path = Path.Combine(this._ihostingEnvironment.WebRootPath, "slide", fileName);
+            var stream = new FileStream(path, FileMode.Create);
+            await Slide.File.CopyToAsync(stream);
+            dto.Name = fileName;
+
             await _slideAppService.CreateAsync(dto);
             return NoContent();
         }
@@ -31,8 +45,13 @@ namespace Acme.BookStore.Web.Pages.Slides
         {
 
             [Required]
-            [StringLength(128)]
+            [StringLength(SlideConsts.MaxNameLength)]
             public string Name { get; set; }
+
+            [Required]
+            [Display(Name = "File")]
+            public IFormFile File { get; set; }
+
             [Required]
             public string Title { get; set; }
             [Required]

@@ -4,7 +4,6 @@
     var baseUrl = (window.location).href; // You can also use document.URL
     var id = baseUrl.substring(baseUrl.lastIndexOf('?') + 1);
 
-    debugger;
 
     abp.ajax({
         type: 'GET',

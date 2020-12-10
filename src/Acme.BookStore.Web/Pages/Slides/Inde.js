@@ -30,7 +30,7 @@
                                     visible: abp.auth.isGranted('BookStore.Slides.Delete'), //CHECK for the PERMISSION
                                     confirmMessage: function (data) {
                                         return l(
-                                            'BookDeletionConfirmationMessage',
+                                            'SlideDeletionConfirmationMessage',
                                             data.record.name
                                         );
                                     },
@@ -50,7 +50,21 @@
                 },
                 {
                     title: l('Name'),
-                    data: "name"
+                    data: "name", render: function (data) {
+                        return '<img width="100" height="100" src="slide/' + data + '"/>'
+                    },
+                },
+                {
+                    title: l('Title'),
+                    data: "title"
+                },
+                {
+                    title: l('Detail'),
+                    data: "detail"
+                },
+                {
+                    title: l('Sale'),
+                    data: "sale"
                 },
             ]
         })
