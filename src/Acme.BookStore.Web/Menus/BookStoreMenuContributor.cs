@@ -76,6 +76,7 @@ namespace Acme.BookStore.Web.Menus
                 context.Menu.AddItem(loginStoreMenu);
             }
             #endregion
+
             #region Category
                 var categoryStoreMenu = new ApplicationMenuItem(
                 "categoryStoreMenu",

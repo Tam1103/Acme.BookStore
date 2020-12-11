@@ -2,13 +2,6 @@
     var l = abp.localization.getResource('BookStore');
     var editModal = new abp.ModalManager(abp.appPath + 'BookDetail');
 
-      var result = abp.libs.datatables.createAjax(acme.bookStore.slides.slide.getList);
-        $.each(result, function (key, value) {
-            $("#slideMove").append(
-                + '<img width="200" height="200" src="slide/' + value.name + '"/>'
-            );
-        });
-
     var dataTable = $('#AuthorsTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
             serverSide: true,
