@@ -66,6 +66,7 @@
     "SlideDeletionConfirmationMessage": "Bạn chắc chắn muốn xoá '{0}'?",
     "Sale": "Giảm giá",
     "Title": "Nội dung",
-    "NewSlide": "Tạo mới slide"
+    "NewSlide": "Tạo mới slide",
+    "Administration":  "Quản trị viên"
   }
 }

@@ -8,8 +8,8 @@
         url: 'api/app/book/' + id
     }).then(function (result) {
         $("#name").html( result.name),
-        $("#authorName").html(result.authorName ),
+        $("#authorName").html(result.authorName),
         $('#price').html(result.price);
-        $('#Image').html('<img width="200" height="200" src="my-files/host/my-file-container/' + result.image + '"/>')
+        $('#image').html('<img width="200" height="200" src="my-files/host/my-file-container/' + result.image + '"/>')
     });
 });
