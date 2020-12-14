@@ -7,6 +7,7 @@ namespace Acme.BookStore.Books
     {
         public string Name { get; set; }
 
+        public string Image { get; set; }
         public Guid AuthorId { get; set; }
 
         public string AuthorName { get; set; }

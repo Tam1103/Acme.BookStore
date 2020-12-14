@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Acme.BookStore.Books;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
@@ -19,10 +22,11 @@ namespace Acme.BookStore.Web.Pages.Books
         public List<SelectListItem> Authors { get; set; }
 
         private readonly IBookAppService _bookAppService;
-
-        public EditModalModel(IBookAppService bookAppService)
+        private IWebHostEnvironment ihostingEnvironment;
+        public EditModalModel(IBookAppService bookAppService, IWebHostEnvironment _ihostingEnvironment)
         {
             _bookAppService = bookAppService;
+            ihostingEnvironment = _ihostingEnvironment;
         }
 
         public async Task OnGetAsync(Guid id)
@@ -38,10 +42,16 @@ namespace Acme.BookStore.Web.Pages.Books
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var dto = ObjectMapper.Map<EditBookViewModel, CreateUpdateBookDto>(Book);
+
+            var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + Book.File.FileName;
+            var path = Path.Combine(this.ihostingEnvironment.WebRootPath, "my-files/host/my-file-container", fileName);
+            var stream = new FileStream(path, FileMode.Create);
+            await Book.File.CopyToAsync(stream);
+            dto.Image = fileName;
             await _bookAppService.UpdateAsync(
                 Book.Id,
-                ObjectMapper.Map<EditBookViewModel, CreateUpdateBookDto>(Book)
-            );
+                dto);
 
             return NoContent();
         }
@@ -55,18 +65,22 @@ namespace Acme.BookStore.Web.Pages.Books
             [DisplayName("Author")]
             public Guid AuthorId { get; set; }
 
-            [Required]
-            [StringLength(128)]
+            [StringLength(BookConsts.MaxNameLength)]
             public string Name { get; set; }
 
-            [Required]
-            public BookType Type { get; set; } = BookType.Undefined;
 
-            [Required]
+            [Display(Name = "Filename")]
+            public string Image { get; set; }
+
+
+            [Display(Name = "File")]
+            public IFormFile File { get; set; }
+
+            public BookType Type { get; set; }
+
             [DataType(DataType.Date)]
             public DateTime PublishDate { get; set; } = DateTime.Now;
 
-            [Required]
             public float Price { get; set; }
         }
     }

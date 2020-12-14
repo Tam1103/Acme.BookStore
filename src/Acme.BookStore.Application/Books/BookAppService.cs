@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Acme.BookStore.Authors;
 using Acme.BookStore.Permissions;
-using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
@@ -12,7 +11,6 @@ using Volo.Abp.Domain.Repositories;
 
 namespace Acme.BookStore.Books
 {
-    [Authorize(BookStorePermissions.Books.Default)]
     public class BookAppService :
         CrudAppService<
             Book, //The Book entity
@@ -34,13 +32,11 @@ namespace Acme.BookStore.Books
             GetListPolicyName = BookStorePermissions.Books.Default;
             CreatePolicyName = BookStorePermissions.Books.Create;
             UpdatePolicyName = BookStorePermissions.Books.Edit;
-            DeletePolicyName = BookStorePermissions.Books.Create;
+            DeletePolicyName = BookStorePermissions.Books.Delete;
         }
 
         public override async Task<BookDto> GetAsync(Guid id)
         {
-            await CheckGetPolicyAsync();
-
             //Prepare a query to join books and authors
             var query = from book in Repository
                         join author in _authorRepository on book.AuthorId equals author.Id
@@ -60,11 +56,8 @@ namespace Acme.BookStore.Books
 
         }
 
-        public override async Task<PagedResultDto<BookDto>>
-            GetListAsync(PagedAndSortedResultRequestDto input)
+        public override async Task<PagedResultDto<BookDto>>GetListAsync(PagedAndSortedResultRequestDto input)
         {
-            await CheckGetListPolicyAsync();
-
             //Prepare a query to join books and authors
             var query = from book in Repository
                         join author in _authorRepository on book.AuthorId equals author.Id
@@ -102,6 +95,12 @@ namespace Acme.BookStore.Books
             return new ListResultDto<AuthorLookupDto>(
                 ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
             );
+        }
+        public List<BookDto> GetListByCategoryId(Guid id)
+        {
+            var myList =  Repository.Where(s => s.AuthorId == id).ToList();
+            //Execute the query and get the book with author
+            return ObjectMapper.Map<List<Book>, List<BookDto>>(myList);
         }
     }
 }

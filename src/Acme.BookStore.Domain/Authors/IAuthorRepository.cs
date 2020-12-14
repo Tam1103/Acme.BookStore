@@ -15,5 +15,6 @@ namespace Acme.BookStore.Authors
             string sorting,
             string filter = null
         );
+        Task GetListAsync(Guid authorID);
     }
 }

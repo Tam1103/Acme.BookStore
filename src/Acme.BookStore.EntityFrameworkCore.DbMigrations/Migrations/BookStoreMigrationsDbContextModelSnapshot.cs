@@ -112,6 +112,9 @@ namespace Acme.BookStore.Migrations
                         .HasColumnName("ExtraProperties")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnName("LastModificationTime")
                         .HasColumnType("datetime2");
@@ -139,6 +142,57 @@ namespace Acme.BookStore.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("AppBooks");
+                });
+
+            modelBuilder.Entity("Acme.BookStore.Slides.Slide", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Detail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnName("ExtraProperties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<float>("Sale")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppSlides");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -449,6 +503,79 @@ namespace Acme.BookStore.Migrations
                     b.HasIndex("IsAbandoned", "NextTryTime");
 
                     b.ToTable("AbpBackgroundJobs");
+                });
+
+            modelBuilder.Entity("Volo.Abp.BlobStoring.Database.DatabaseBlob", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<Guid>("ContainerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("Content")
+                        .HasColumnType("varbinary(max)")
+                        .HasMaxLength(2147483647);
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnName("ExtraProperties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContainerId");
+
+                    b.HasIndex("TenantId", "ContainerId", "Name");
+
+                    b.ToTable("AbpBlobs");
+                });
+
+            modelBuilder.Entity("Volo.Abp.BlobStoring.Database.DatabaseBlobContainer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnName("ExtraProperties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId", "Name");
+
+                    b.ToTable("AbpBlobContainers");
                 });
 
             modelBuilder.Entity("Volo.Abp.FeatureManagement.FeatureValue", b =>
@@ -1953,6 +2080,15 @@ namespace Acme.BookStore.Migrations
                     b.HasOne("Volo.Abp.AuditLogging.EntityChange", null)
                         .WithMany("PropertyChanges")
                         .HasForeignKey("EntityChangeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Volo.Abp.BlobStoring.Database.DatabaseBlob", b =>
+                {
+                    b.HasOne("Volo.Abp.BlobStoring.Database.DatabaseBlobContainer", null)
+                        .WithMany()
+                        .HasForeignKey("ContainerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

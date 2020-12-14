@@ -15,4 +15,19 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="DatabaseDiagrams.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DatabaseDiagrams.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DatabaseDiagrams.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatabaseDiagrams.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
 </Project>
