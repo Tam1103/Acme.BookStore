@@ -93,8 +93,4 @@
     <UpToDateCheckInput Remove="Pages\Books\AuthorList.cshtml" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\slide\" />
-  </ItemGroup>
-
 </Project>
