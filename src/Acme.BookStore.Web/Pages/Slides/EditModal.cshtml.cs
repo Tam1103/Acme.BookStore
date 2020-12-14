@@ -1,17 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using Acme.BookStore.Books;
 using Acme.BookStore.Slides;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
 namespace Acme.BookStore.Web.Pages.Slides
 {
@@ -21,8 +15,8 @@ namespace Acme.BookStore.Web.Pages.Slides
         public EditSlideViewModel Slide { get; set; }
 
         private readonly ISlideAppService _slideAppService;
-        private readonly IHostingEnvironment _ihostingEnvironment;
-        public EditModalModel(ISlideAppService slideAppService, IHostingEnvironment hostingEnvironment)
+        private readonly IWebHostEnvironment _ihostingEnvironment;
+        public EditModalModel(ISlideAppService slideAppService, IWebHostEnvironment hostingEnvironment)
         {
             _slideAppService = slideAppService;
             _ihostingEnvironment = hostingEnvironment;
@@ -36,7 +30,6 @@ namespace Acme.BookStore.Web.Pages.Slides
 
         public async Task<IActionResult> OnPostAsync()
         {
-     
             var dto =  ObjectMapper.Map<EditSlideViewModel, CreateUpdateSlideDto>(Slide);
 
             var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + Slide.File.FileName;

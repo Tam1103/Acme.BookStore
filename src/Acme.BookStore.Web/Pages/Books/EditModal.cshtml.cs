@@ -22,8 +22,8 @@ namespace Acme.BookStore.Web.Pages.Books
         public List<SelectListItem> Authors { get; set; }
 
         private readonly IBookAppService _bookAppService;
-        private IHostingEnvironment ihostingEnvironment;
-        public EditModalModel(IBookAppService bookAppService, IHostingEnvironment _ihostingEnvironment)
+        private IWebHostEnvironment ihostingEnvironment;
+        public EditModalModel(IBookAppService bookAppService, IWebHostEnvironment _ihostingEnvironment)
         {
             _bookAppService = bookAppService;
             ihostingEnvironment = _ihostingEnvironment;

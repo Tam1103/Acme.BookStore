@@ -14,8 +14,8 @@ namespace Acme.BookStore.Web.Pages.Slides
         [BindProperty]
         public CreateSlideViewModel Slide { get; set; }
         private readonly ISlideAppService _slideAppService;
-        private readonly IHostingEnvironment _ihostingEnvironment;
-        public CreateModalModel(ISlideAppService slideAppService, IHostingEnvironment _ihot)
+        private readonly IWebHostEnvironment _ihostingEnvironment;
+        public CreateModalModel(ISlideAppService slideAppService, IWebHostEnvironment _ihot)
         {
             _slideAppService = slideAppService;
             _ihostingEnvironment = _ihot;

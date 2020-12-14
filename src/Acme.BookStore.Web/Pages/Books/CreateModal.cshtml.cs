@@ -17,14 +17,14 @@ namespace Acme.BookStore.Web.Pages.Books
 {
     public class CreateModalModel : BookStorePageModel
     {
-        private IHostingEnvironment ihostingEnvironment;
+        private IWebHostEnvironment ihostingEnvironment;
         [BindProperty]
         public CreateBookViewModel Book { get; set; }
 
         public List<SelectListItem> Authors { get; set; }
         public bool Uploaded { get; set; } = false;
         private readonly IBookAppService _bookAppService;
-        public CreateModalModel(IBookAppService bookAppService, IFileAppService fileAppService, IHostingEnvironment _ihostingEnvironment)
+        public CreateModalModel(IBookAppService bookAppService, IWebHostEnvironment _ihostingEnvironment)
         {
             _bookAppService = bookAppService;
             ihostingEnvironment = _ihostingEnvironment;

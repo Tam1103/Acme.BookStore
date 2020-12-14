@@ -1,11 +1,7 @@
-﻿using Acme.BookStore.Authors;
-using Acme.BookStore.Permissions;
+﻿using Acme.BookStore.Permissions;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 namespace Acme.BookStore.Slides
 {
