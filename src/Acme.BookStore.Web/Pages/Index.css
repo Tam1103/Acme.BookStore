@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&display=swap');
+﻿/*@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&display=swap');
 html,body {
   
 }
@@ -47,3 +47,5 @@ a {
 .modal-content {
     color: #000000 !important;
 }
+*/
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap');
