@@ -11,8 +11,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Acme.BookStore.Migrations
 {
     [DbContext(typeof(BookStoreMigrationsDbContext))]
-    [Migration("20201209052641_Add_Slide")]
-    partial class Add_Slide
+    [Migration("20201218090056_add_Test")]
+    partial class add_Test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -127,8 +127,8 @@ namespace Acme.BookStore.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
@@ -183,8 +183,8 @@ namespace Acme.BookStore.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
 
                     b.Property<float>("Sale")
                         .HasColumnType("real");
@@ -193,6 +193,8 @@ namespace Acme.BookStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name");
 
                     b.ToTable("AppSlides");
                 });
