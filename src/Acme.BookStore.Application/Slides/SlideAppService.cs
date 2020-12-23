@@ -1,5 +1,8 @@
-﻿using Acme.BookStore.Permissions;
+﻿using Acme.BookStore.Controllers;
+using Acme.BookStore.Permissions;
+using Microsoft.AspNetCore.Http;
 using System;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
@@ -28,6 +31,18 @@ namespace Acme.BookStore.Slides
             DeletePolicyName = BookStorePermissions.Slides.Delete;
         }
 
+        public async Task<SlideDto> CreatePhotoAsync(CreateUpdateSlideDto input, IFormFile file)
+        {
+            var fileName = file.GetFileName();
+            var slide = new Slide
+            {
+                Name = fileName,
+            };
+
+            await Repository.InsertAsync(slide);
+
+            return ObjectMapper.Map<Slide,SlideDto>(slide);
+        }
         //public override async Task<SlideDto> GetAsync(Guid id)
         //{
         //    var queryResult = await Repository.GetAsync(id);
