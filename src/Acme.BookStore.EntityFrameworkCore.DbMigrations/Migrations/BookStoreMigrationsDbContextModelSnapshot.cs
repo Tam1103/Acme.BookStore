@@ -194,11 +194,10 @@ namespace Acme.BookStore.Migrations
 
                     b.HasIndex("Name");
 
-<<<<<<< HEAD
                     b.ToTable("AppSlides");
-=======
+
                     b.ToTable("AppPhotos");
->>>>>>> fixbug_project
+
                 });
 
             modelBuilder.Entity("Acme.BookStore.Tests.Test", b =>
