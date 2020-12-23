@@ -51,6 +51,13 @@ namespace Acme.BookStore.EntityFrameworkCore
                 b.Property(x => x.Name).IsRequired().HasMaxLength(SlideConsts.MaxNameLength);
                 b.HasIndex(x => x.Name);
             });
+
+            builder.Entity<Slide>(b =>
+                    {
+                        b.ToTable(BookStoreConsts.DbTablePrefix + "Photos", BookStoreConsts.DbSchema);
+                        b.ConfigureByConvention(); //auto configure for the base class props
+                    });
+
         }
     }
 }
