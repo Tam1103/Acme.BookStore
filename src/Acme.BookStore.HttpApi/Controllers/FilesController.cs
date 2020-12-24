@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc;
 
-namespace ABPBlog
+namespace Acme.BookStore
 {
     public class FileController : AbpController
     {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
@@ -11,6 +12,7 @@ namespace Acme.BookStore.Slides
             Guid,
             PagedAndSortedResultRequestDto,
             CreateUpdateSlideDto>
-    { 
+    {
+        Task<List<SlideDto>> CreateSlide(IFormFile file);
     }
 }
