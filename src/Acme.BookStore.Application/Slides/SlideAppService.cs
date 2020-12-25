@@ -1,9 +1,8 @@
-﻿using Acme.BookStore.Controllers.MyProject;
-using Acme.BookStore.Permissions;
+﻿using Acme.BookStore.Permissions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
@@ -38,24 +37,21 @@ namespace Acme.BookStore.Slides
             DeletePolicyName = BookStorePermissions.Slides.Delete;
         }
 
-        public async Task<List<SlideDto>> CreateSlide(IFormFile file)
+
+        public async Task<SlideDto> UploadFile(IFormFile file, CreateUpdateSlideDto input)
         {
             try
             {
-                var fileName = file.GetFileName();
+                var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + file.FileName;
                 var path = Path.Combine(this._iHostEnvironment.WebRootPath, "slide", fileName);
                 var stream = new FileStream(path, FileMode.Create);
-
+                await file.CopyToAsync(stream);
                 var slides = new Slide
                 {
-                    Name = fileName,
+                    Name = fileName
                 };
                 await Repository.InsertAsync(slides);
-
-                var slidess = await Repository.GetListAsync();
-                return new List<SlideDto>(
-                    ObjectMapper.Map<List<Slide>, List<SlideDto>>(slidess)
-                );
+                return ObjectMapper.Map<Slide, SlideDto>(slides);
             }
 
             catch (Exception)
@@ -63,28 +59,5 @@ namespace Acme.BookStore.Slides
                 throw new ArgumentNullException();
             }
         }
-
-
-        //public override async Task<SlideDto> GetAsync(Guid id)
-        //{
-        //    var queryResult = await Repository.GetAsync(id);
-        //    if (queryResult == null)
-        //    {
-        //        throw new EntityNotFoundException(typeof(Slide), id);
-        //    }
-
-        //    var slideDto = ObjectMapper.Map<Slide, SlideDto>(queryResult);
-        //    return slideDto;
-        //}
-
-        //public override async Task<PagedResultDto<SlideDto>> GetListAsync(PagedAndSortedResultRequestDto input)
-        //{
-        //    var slides = await Repository.GetListAsync();
-        //    var totalCount = await Repository.GetCountAsync();
-        //    return new PagedResultDto<SlideDto>(
-        //        totalCount,
-        //        ObjectMapper.Map<List<Slide>, List<SlideDto>>(slides)
-        //    );
-        //}
     }
 }

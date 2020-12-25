@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acme.BookStore.DbMigrator",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "theme", "theme", "{F9F74276-4766-4AA1-80C3-CC0BFB3C483B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abp.AspNetCore.Mvc.UI.Theme.AdminLTE", "theme\Abp.AspNetCore.Mvc.UI.Theme.AdminLTE\Abp.AspNetCore.Mvc.UI.Theme.AdminLTE.csproj", "{A10160A9-A3D3-4CBA-A66A-3FAEDE77C6EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abp.AspNetCore.Mvc.UI.Theme.AdminLTE", "theme\Abp.AspNetCore.Mvc.UI.Theme.AdminLTE\Abp.AspNetCore.Mvc.UI.Theme.AdminLTE.csproj", "{A10160A9-A3D3-4CBA-A66A-3FAEDE77C6EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

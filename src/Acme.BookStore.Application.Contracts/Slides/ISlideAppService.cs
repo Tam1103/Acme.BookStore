@@ -13,6 +13,5 @@ namespace Acme.BookStore.Slides
             PagedAndSortedResultRequestDto,
             CreateUpdateSlideDto>
     {
-        Task<List<SlideDto>> CreateSlide(IFormFile file);
     }
 }
