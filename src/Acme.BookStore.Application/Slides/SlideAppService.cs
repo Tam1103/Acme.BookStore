@@ -1,8 +1,14 @@
 ﻿using Acme.BookStore.Permissions;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
+using System.IO;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+
 namespace Acme.BookStore.Slides
 {
     public class SlideAppService :
@@ -14,12 +20,15 @@ namespace Acme.BookStore.Slides
             CreateUpdateSlideDto>, //Used to create/update a slide
         ISlideAppService //implement the ISlideAppService
     {
+        private readonly IWebHostEnvironment _iHostEnvironment;
         //private readonly IAuthorRepository _authorRepository;
         public SlideAppService(
-            IRepository<Slide, Guid> repository
+            IRepository<Slide, Guid> repository,
+            IWebHostEnvironment webHostEnvironment
          /*   IAuthorRepository authorRepository*/)
             : base(repository)
         {
+            _iHostEnvironment = webHostEnvironment;
             //_authorRepository = authorRepository;
             GetPolicyName = BookStorePermissions.Slides.Default;
             GetListPolicyName = BookStorePermissions.Slides.Default;
@@ -28,26 +37,27 @@ namespace Acme.BookStore.Slides
             DeletePolicyName = BookStorePermissions.Slides.Delete;
         }
 
-        //public override async Task<SlideDto> GetAsync(Guid id)
-        //{
-        //    var queryResult = await Repository.GetAsync(id);
-        //    if (queryResult == null)
-        //    {
-        //        throw new EntityNotFoundException(typeof(Slide), id);
-        //    }
 
-        //    var slideDto = ObjectMapper.Map<Slide, SlideDto>(queryResult);
-        //    return slideDto;
-        //}
+        public async Task<SlideDto> UploadFile(IFormFile file, CreateUpdateSlideDto input)
+        {
+            try
+            {
+                var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + file.FileName;
+                var path = Path.Combine(this._iHostEnvironment.WebRootPath, "slide", fileName);
+                var stream = new FileStream(path, FileMode.Create);
+                await file.CopyToAsync(stream);
+                var slides = new Slide
+                {
+                    Name = fileName
+                };
+                await Repository.InsertAsync(slides);
+                return ObjectMapper.Map<Slide, SlideDto>(slides);
+            }
 
-        //public override async Task<PagedResultDto<SlideDto>> GetListAsync(PagedAndSortedResultRequestDto input)
-        //{
-        //    var slides = await Repository.GetListAsync();
-        //    var totalCount = await Repository.GetCountAsync();
-        //    return new PagedResultDto<SlideDto>(
-        //        totalCount,
-        //        ObjectMapper.Map<List<Slide>, List<SlideDto>>(slides)
-        //    );
-        //}
+            catch (Exception)
+            {
+                throw new ArgumentNullException();
+            }
+        }
     }
 }

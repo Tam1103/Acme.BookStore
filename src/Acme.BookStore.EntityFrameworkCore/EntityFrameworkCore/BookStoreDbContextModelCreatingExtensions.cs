@@ -1,6 +1,7 @@
 ﻿using Acme.BookStore.Authors;
 using Acme.BookStore.Books;
 using Acme.BookStore.Slides;
+using Acme.BookStore.Tests;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
@@ -43,7 +44,6 @@ namespace Acme.BookStore.EntityFrameworkCore
             });
 
 
-
             builder.Entity<Slide>(b =>
             {
                 b.ToTable(BookStoreConsts.DbTablePrefix + "Slides", BookStoreConsts.DbSchema);
@@ -51,6 +51,23 @@ namespace Acme.BookStore.EntityFrameworkCore
                 b.Property(x => x.Name).IsRequired().HasMaxLength(SlideConsts.MaxNameLength);
                 b.HasIndex(x => x.Name);
             });
+
+
+
+            builder.Entity<Test>(b =>
+            {
+                b.ToTable(BookStoreConsts.DbTablePrefix + "Tests", BookStoreConsts.DbSchema);
+                b.ConfigureByConvention(); //auto configure for the base class props
+                b.Property(x => x.Name).IsRequired().HasMaxLength(SlideConsts.MaxNameLength);
+                b.HasIndex(x => x.Name);
+            });
+
+            builder.Entity<Slide>(b =>
+                    {
+                        b.ToTable(BookStoreConsts.DbTablePrefix + "Photos", BookStoreConsts.DbSchema);
+                        b.ConfigureByConvention(); //auto configure for the base class props
+                    });
+
         }
     }
 }
