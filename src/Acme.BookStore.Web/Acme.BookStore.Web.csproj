@@ -103,7 +103,6 @@
     <Folder Include="Areas\Home\Data\" />
     <Folder Include="Areas\Home\Models\" />
     <Folder Include="Areas\Home\Views\" />
-    <Folder Include="wwwroot\slide\" />
   </ItemGroup>
 
 </Project>

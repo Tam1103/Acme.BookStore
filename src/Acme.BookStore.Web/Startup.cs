@@ -8,6 +8,7 @@ namespace Acme.BookStore.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication<BookStoreWebModule>();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         public void Configure(IApplicationBuilder app)

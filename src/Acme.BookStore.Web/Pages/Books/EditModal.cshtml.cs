@@ -43,7 +43,6 @@ namespace Acme.BookStore.Web.Pages.Books
         public async Task<IActionResult> OnPostAsync()
         {
             var dto = ObjectMapper.Map<EditBookViewModel, CreateUpdateBookDto>(Book);
-
             var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + Book.File.FileName;
             var path = Path.Combine(this.ihostingEnvironment.WebRootPath, "my-files/host/my-file-container", fileName);
             var stream = new FileStream(path, FileMode.Create);
@@ -67,12 +66,12 @@ namespace Acme.BookStore.Web.Pages.Books
 
             [StringLength(BookConsts.MaxNameLength)]
             public string Name { get; set; }
-
-
+            
+            [Required]
             [Display(Name = "Filename")]
             public string Image { get; set; }
 
-
+            [Required]
             [Display(Name = "File")]
             public IFormFile File { get; set; }
 

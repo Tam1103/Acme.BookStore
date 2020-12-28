@@ -51,6 +51,7 @@ namespace Acme.BookStore.Web.Pages.Slides
 
             [StringLength(SlideConsts.MaxNameLength)]
             public string Name { get; set; }
+            [Required]
             [Display(Name = "File")]
             public IFormFile File { get; set; }
             public string Title { get; set; }

@@ -38,7 +38,7 @@ namespace Acme.BookStore.Slides
         }
 
 
-        public async Task<SlideDto> UploadFile(IFormFile file, CreateUpdateSlideDto input)
+        public async Task<SlideDto> UploadFile(IFormFile file,string title,string detail, float price)
         {
             try
             {
@@ -48,7 +48,10 @@ namespace Acme.BookStore.Slides
                 await file.CopyToAsync(stream);
                 var slides = new Slide
                 {
-                    Name = fileName
+                    Name = fileName,
+                    Title = title,
+                    Detail = detail,
+                    Sale = price
                 };
                 await Repository.InsertAsync(slides);
                 return ObjectMapper.Map<Slide, SlideDto>(slides);

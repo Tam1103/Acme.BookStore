@@ -63,20 +63,6 @@ namespace Acme.BookStore.Web.Menus
 
             context.Menu.AddItem(bookStoreMenu);
 
-            #region Login
-            var loginStoreMenu = new ApplicationMenuItem(
-              "loginStoreMenu",
-              l["Login"],
-              icon: "fas fa-sign-in-alt",
-              url: "account/login"
-          );
-
-            if (!await context.IsGrantedAsync(BookStorePermissions.Authors.Default))
-            {
-                context.Menu.AddItem(loginStoreMenu);
-            }
-            #endregion
-
             #region Category
                 var categoryStoreMenu = new ApplicationMenuItem(
                 "categoryStoreMenu",
