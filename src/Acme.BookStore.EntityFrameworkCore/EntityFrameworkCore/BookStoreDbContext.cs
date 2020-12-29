@@ -8,7 +8,6 @@ using Volo.Abp.Users.EntityFrameworkCore;
 using Acme.BookStore.Books;
 using Acme.BookStore.Authors;
 using Acme.BookStore.Slides;
-using Acme.BookStore.Photos;
 
 namespace Acme.BookStore.EntityFrameworkCore
 {
@@ -28,7 +27,6 @@ namespace Acme.BookStore.EntityFrameworkCore
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Slide> Slides { get; set; }
-        public DbSet<Photo> Photos { get; set; }
 
 
         /* Add DbSet properties for your Aggregate Roots / Entities here.

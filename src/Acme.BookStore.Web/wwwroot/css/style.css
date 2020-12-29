@@ -136,7 +136,6 @@ body {
     background:#EEE;
     -webkit-transition: all 0.3s ease-out;
     -moz-transition: all 0.3s ease-out;
-    -ms-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
     list-style: none;
@@ -151,7 +150,6 @@ body {
     padding: 10px;
     -webkit-transition: all 0.3s ease-out;
     -moz-transition: all 0.3s ease-out;
-    -ms-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
 }
@@ -171,8 +169,6 @@ body {
 	background: #383838;
 	border-radius: 6px;
 	-webkit-border-radius: 6px;
-	-moz-border-rfadius: 6px;
-	-o-border-radius: 6px;
 }
 .menu {
 	float: left;
@@ -191,7 +187,6 @@ body {
     -webkit-transition: all .9s;
    -moz-transition: all .9s;
    -o-transition: all .9s;
-   -ms-transition: all .9s;
    transition: all .9s;
 }
 .menu li a:hover,.menu li.active a{
@@ -200,8 +195,6 @@ body {
 .menu li:first-child  a{
 	border-radius:6px 0 0 6px;
 	-webkit-border-radius:6px 0 0 6px;
-	-moz-border-rfadius:6px 0 0 6px;
-	-o-border-radius:6px 0 0 6px;
 }
 .search_box {
 	float: right;
@@ -210,7 +203,6 @@ body {
 	border-radius: 0.3em;
 	-webkit-border-radius: 0.3em;
 	-moz-border-radius: 0.3em;
-	-o-border-radius: 0.3em;
 	position: relative;
 	margin-top:8px;
 	margin-right: 15px;
@@ -331,7 +323,6 @@ body {
 	box-shadow: 0px 0px 3px rgb(150, 150, 150);
 	-webkit-box-shadow: 0px 0px 3px rgb(150, 150, 150);
 	-moz-box-shadow: 0px 0px 3px rgb(150, 150, 150);
-	-o-box-shadow: 0px 0px 3px rgb(150, 150, 150);
 }
 .grid_1_of_4:first-child {
 	margin-left: 0;
@@ -518,7 +509,6 @@ body {
 	overflow: hidden;
 	float: right;
 	opacity: 0;
-	-moz-opacity: 0;
 	filter: alpha(opacity=0);
 }
 #toTop:active, #toTop:focus {
@@ -623,7 +613,7 @@ body {
 .price p span {
 	font-size:3em;
 	font-family: 'ambleregular';
-	color:#CD1F25;;
+	color:#CD1F25;
 }
 .available {
 	padding:20px 0;
@@ -730,7 +720,6 @@ body {
 	box-shadow: inset 0px 0px 3px #999;
 	-webkit-box-shadow: inset 0px 0px 3px #999;
 	-moz-box-shadow: inset 0px 0px 3px #999;
-	-o-box-shadow: inset 0px 0px 3px #999;
 	-webkit-appearance: none;
 }
 .product-tags .button {
@@ -905,7 +894,6 @@ body {
 	border-radius: 0.2em;
 	-webkit-border-radius: 0.2em;
 	-moz-border-radius: 0.2em;
-	-o-border-radius: 0.2em;
 	margin-top: 5px;
 	background: #E7E7E7;
 	box-shadow: inset 0px 2px 5px #707070;
@@ -938,7 +926,6 @@ body {
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5e5e5e), color-stop(100%,#404040));
 	background: -webkit-linear-gradient(top,  #5e5e5e 0%,#404040 100%);
 	background: -o-linear-gradient(top,  #5e5e5e 0%,#404040 100%);
-	background: -ms-linear-gradient(top,  #5e5e5e 0%,#404040 100%);
 	background: linear-gradient(top,  #5e5e5e 0%,#404040 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e5e5e', endColorstr='#404040',GradientType=0 );
 	box-shadow: 1px 1px 0 0 #414141 inset, -1px -1px 0 0 #414141 inset, 0 1px 2px -1px rgba(0,0,0,0.15);
@@ -1155,7 +1142,7 @@ body {
 }
 .news_desc h4 ,.news_desc h4 a{
 	font-size:0.95em;
-	color:#303030;;
+	color:#303030;
 	padding-bottom:5px;
 }
 .news_desc  p{
@@ -1185,11 +1172,9 @@ body {
 	box-shadow: 0px 0px 5px #ADADAD;
 	-webkit-box-shadow: 0px 0px 2px #ADADAD;
 	-moz-box-shadow: 0px 0px 2px #ADADAD;
-	-o-box-shadow: 0px 0px 2px #ADADAD;
 	-webkit-transition: all .5s;
 	-moz-transition: all .5s;
 	-o-transition: all .5s;
-	-ms-transition: all .5s;
 	transition: all .5s;
 }
 .content-pagenation li a:hover,.content-pagenation li.active a{

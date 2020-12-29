@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Microsoft.AspNetCore.Mvc.Core;
 
 namespace Acme.BookStore.Slides
 {
@@ -37,30 +38,21 @@ namespace Acme.BookStore.Slides
             DeletePolicyName = BookStorePermissions.Slides.Delete;
         }
 
-
         public async Task<SlideDto> UploadFile(IFormFile file,string title,string detail, float price)
         {
-            try
-            {
                 var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + file.FileName;
-                var path = Path.Combine(this._iHostEnvironment.WebRootPath, "slide", fileName);
+                var path = Path.Combine(this._iHostEnvironment.WebRootPath, "slides", fileName);
                 var stream = new FileStream(path, FileMode.Create);
                 await file.CopyToAsync(stream);
-                var slides = new Slide
+                var slide = new Slide
                 {
                     Name = fileName,
                     Title = title,
                     Detail = detail,
                     Sale = price
                 };
-                await Repository.InsertAsync(slides);
-                return ObjectMapper.Map<Slide, SlideDto>(slides);
-            }
-
-            catch (Exception)
-            {
-                throw new ArgumentNullException();
-            }
+                await Repository.InsertAsync(slide);
+                return ObjectMapper.Map<Slide, SlideDto>(slide);
         }
     }
 }

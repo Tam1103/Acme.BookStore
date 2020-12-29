@@ -33,45 +33,50 @@ namespace Acme.BookStore.Web.Menus
                 icon: "fas fa-chevron-circle-down"
             );
 
-            //CHECK the PERMISSION
-            if (await context.IsGrantedAsync(BookStorePermissions.Books.Default))
-            {
-                bookStoreMenu.AddItem(new ApplicationMenuItem(
-                    "BooksStore.Books",
-                    l["Menu:Books"],
-                    url: "/Books"
-                ));
-            }
             //CHECK the PERMISSION OF AUTHORS IN BOOKSTOREMENU CONTRIBUTOR
             if (await context.IsGrantedAsync(BookStorePermissions.Authors.Default))
             {
                 bookStoreMenu.AddItem(new ApplicationMenuItem(
                     "BooksStore.Authors",
                     l["Menu:Authors"],
-                    url: "/Authors"
+                    url: "/Admin/Authors",
+                    icon: "fas fa-chevron-right"
                 ));
             }
 
+            //CHECK the PERMISSION
+            if (await context.IsGrantedAsync(BookStorePermissions.Books.Default))
+            {
+                bookStoreMenu.AddItem(new ApplicationMenuItem(
+                    "BooksStore.Books",
+                    l["Menu:Books"],
+                    url: "/Admin/Books",
+                    icon: "fas fa-chevron-right"
+                ));
+            }
+
+            //CHECK the PERMISSION OF SLIDE
             if (await context.IsGrantedAsync(BookStorePermissions.Slides.Default))
             {
                 bookStoreMenu.AddItem(new ApplicationMenuItem(
                     "BooksStore.Slides",
                     l["Menu:Slides"],
-                    url: "/Slides"
+                    url: "/Admin/Slides",
+                    icon: "fas fa-chevron-right"
                 ));
             }
 
             context.Menu.AddItem(bookStoreMenu);
 
-            #region Category
-                var categoryStoreMenu = new ApplicationMenuItem(
-                "categoryStoreMenu",
-                l["Menu:Category"],
-                icon: "fa fa-book",
-                url: "/Categorys"
-            );
-                context.Menu.AddItem(categoryStoreMenu);
-            #endregion
+            //#region Category
+            //    var categoryStoreMenu = new ApplicationMenuItem(
+            //    "categoryStoreMenu",
+            //    l["Menu:Category"],
+            //    icon: "fa fa-book",
+            //    url: "/Categorys"
+            //);
+            //    context.Menu.AddItem(categoryStoreMenu);
+            //#endregion
         }
     }
 }

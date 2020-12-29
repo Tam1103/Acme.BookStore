@@ -14,20 +14,20 @@ namespace Acme.BookStore.Web
             CreateMap<SlideDto, CreateUpdateSlideDto>();
             // ADD a NEW MAPPING
 
-            CreateMap<Pages.Authors.CreateModalModel.CreateAuthorViewModel, CreateAuthorDto>();
-            CreateMap<Pages.Books.CreateModalModel.CreateBookViewModel, CreateUpdateBookDto>();
-            CreateMap<Pages.Slides.CreateModalModel.CreateSlideViewModel, CreateUpdateSlideDto>();
+            CreateMap<Areas.Admin.Pages.Authors.CreateModalModel.CreateAuthorViewModel, CreateAuthorDto>();
+            CreateMap<Areas.Admin.Pages.Books.CreateModalModel.CreateBookViewModel, CreateUpdateBookDto>();
+            CreateMap<Areas.Admin.Pages.Slides.CreateModalModel.CreateSlideViewModel, CreateUpdateSlideDto>();
 
             // ADD THESE NEW MAPPINGS
-            CreateMap<AuthorDto, Pages.Authors.EditModalModel.EditAuthorViewModel>();
-            CreateMap<Pages.Authors.EditModalModel.EditAuthorViewModel,UpdateAuthorDto>();
+            CreateMap<AuthorDto, Areas.Admin.Pages.Authors.EditModalModel.EditAuthorViewModel>();
+            CreateMap<Areas.Admin.Pages.Authors.EditModalModel.EditAuthorViewModel,UpdateAuthorDto>();
 
 
-            CreateMap<BookDto, Pages.Books.EditModalModel.EditBookViewModel>();
-            CreateMap<Pages.Books.EditModalModel.EditBookViewModel, CreateUpdateBookDto>();
+            CreateMap<BookDto, Areas.Admin.Pages.Books.EditModalModel.EditBookViewModel>();
+            CreateMap<Areas.Admin.Pages.Books.EditModalModel.EditBookViewModel, CreateUpdateBookDto>();
 
-            CreateMap<SlideDto, Pages.Slides.EditModalModel.EditSlideViewModel>();
-            CreateMap<Pages.Slides.EditModalModel.EditSlideViewModel,CreateUpdateSlideDto>();
+            CreateMap<SlideDto, Areas.Admin.Pages.Slides.EditModalModel.EditSlideViewModel>();
+            CreateMap<Areas.Admin.Pages.Slides.EditModalModel.EditSlideViewModel,CreateUpdateSlideDto>();
 
         }
     }

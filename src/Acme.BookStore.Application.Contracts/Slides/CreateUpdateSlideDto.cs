@@ -10,7 +10,9 @@ namespace Acme.BookStore.Slides
         [Required]
         [StringLength(128)]
         public string Name { get; set; }
+        [Required]
         public string Title { get; set; }
+        [Required]
         public string Detail { get; set; }
         public float Sale { get; set; }
     }
