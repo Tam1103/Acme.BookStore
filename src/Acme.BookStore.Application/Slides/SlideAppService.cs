@@ -36,10 +36,13 @@ namespace Acme.BookStore.Slides
             CreatePolicyName = BookStorePermissions.Slides.Create;
             UpdatePolicyName = BookStorePermissions.Slides.Edit;
             DeletePolicyName = BookStorePermissions.Slides.Delete;
-        }
-
+        }   
         public async Task<SlideDto> UploadFile(IFormFile file,string title,string detail, float price)
         {
+            if (file == null || file.Length == 0)
+            {
+                throw new ArgumentException();
+            }
                 var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + file.FileName;
                 var path = Path.Combine(this._iHostEnvironment.WebRootPath, "slides", fileName);
                 var stream = new FileStream(path, FileMode.Create);
@@ -53,6 +56,7 @@ namespace Acme.BookStore.Slides
                 };
                 await Repository.InsertAsync(slide);
                 return ObjectMapper.Map<Slide, SlideDto>(slide);
+            
         }
     }
 }

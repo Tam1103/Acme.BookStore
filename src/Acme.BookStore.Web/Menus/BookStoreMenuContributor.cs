@@ -39,7 +39,7 @@ namespace Acme.BookStore.Web.Menus
                 bookStoreMenu.AddItem(new ApplicationMenuItem(
                     "BooksStore.Authors",
                     l["Menu:Authors"],
-                    url: "/Admin/Authors",
+                    url: "/Authors",
                     icon: "fas fa-chevron-right"
                 ));
             }
@@ -50,7 +50,7 @@ namespace Acme.BookStore.Web.Menus
                 bookStoreMenu.AddItem(new ApplicationMenuItem(
                     "BooksStore.Books",
                     l["Menu:Books"],
-                    url: "/Admin/Books",
+                    url: "/Books",
                     icon: "fas fa-chevron-right"
                 ));
             }
@@ -61,7 +61,7 @@ namespace Acme.BookStore.Web.Menus
                 bookStoreMenu.AddItem(new ApplicationMenuItem(
                     "BooksStore.Slides",
                     l["Menu:Slides"],
-                    url: "/Admin/Slides",
+                    url: "/Slides",
                     icon: "fas fa-chevron-right"
                 ));
             }
