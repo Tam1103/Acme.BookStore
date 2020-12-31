@@ -33,12 +33,8 @@ namespace Acme.BookStore.Web.Pages.Slides
 
             var dto = ObjectMapper.Map<CreateSlideViewModel, CreateUpdateSlideDto>(Slide);
 
-            var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + Slide.File.FileName;
-            var path = Path.Combine(this._ihostingEnvironment.WebRootPath, "slides", fileName);
-            var stream = new FileStream(path, FileMode.Create);
-            await Slide.File.CopyToAsync(stream);
+            var fileName = ImageUpload(Slide.File, _ihostingEnvironment);
             dto.Name = fileName;
-
             await _slideAppService.CreateAsync(dto);
             return NoContent();
         }

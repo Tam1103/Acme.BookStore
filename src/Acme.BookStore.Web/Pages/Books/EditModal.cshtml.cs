@@ -44,17 +44,14 @@ namespace Acme.BookStore.Web.Pages.Books
         {
             var dto = ObjectMapper.Map<EditBookViewModel, CreateUpdateBookDto>(Book);
 
-            if (Book.File != null && !string.IsNullOrEmpty(Book.File.FileName))
+            var fileName = ImageUpload(Book.File, ihostingEnvironment);
+            if (fileName != " ")
             {
-                var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + Book.File.FileName;
-                var path = Path.Combine(this.ihostingEnvironment.WebRootPath, "books", fileName);
-                var stream = new FileStream(path, FileMode.Create);
-                await Book.File.CopyToAsync(stream);
                 dto.Image = fileName;
             }
             await _bookAppService.UpdateAsync(
-                Book.Id,
-                dto);
+              Book.Id,
+              dto);
 
             return NoContent();
         }
@@ -70,7 +67,7 @@ namespace Acme.BookStore.Web.Pages.Books
 
             [StringLength(BookConsts.MaxNameLength)]
             public string Name { get; set; }
-            
+
             [HiddenInput]
             public string Image { get; set; }
 

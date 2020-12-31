@@ -54,7 +54,7 @@
                 {
                     title: l('Name'),
                     data: "name", render: function (data) {
-                        return '<img width="100" height="100" src="slides/' + data + '"/>'
+                        return '<img width="100" height="100" src="images/' + data + '"/>'
                     },
                 },
                 {

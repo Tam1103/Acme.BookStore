@@ -24,7 +24,7 @@
             @if (photo != null)
             {
                 <div class="grid_1_of_4 images_1_of_4">
-                    <a asp-controller="product" asp-action="details" asp-route-id="@product.Id"><img src="~/books/@photo" alt="" /></a>
+                    <a asp-controller="product" asp-action="details" asp-route-id="@product.Id"><img src="~/images/@photo" alt="" /></a>
                     <h2>@product.Name</h2>
                     <div class="price-details">
                         <div class="price-number">

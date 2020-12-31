@@ -63,13 +63,13 @@
                                         @{
                                             var photo = ViewBag.featuredPhoto;
                                             var feturedPhoto = photo == null ? "default.png" : photo;
-                                            <a href="~/books/@feturedPhoto" onclick="return false;" target="_blank"><img src="~/books/@feturedPhoto" alt=" " /></a>
+                                            <a href="~/images/@feturedPhoto" onclick="return false;" target="_blank"><img src="~/images/@feturedPhoto" alt=" " /></a>
                                             } 
                                     </div>
                                     <ul class="pagination">
                                         @{
                                              feturedPhoto = photo == null ? "default.png" : photo;
-                                            <li><a href="#"><img src="~/books/@feturedPhoto" alt=" " /></a></li>
+                                            <li><a href="#"><img src="~/images/@feturedPhoto" alt=" " /></a></li>
                                         }
                                     </ul>
                                 </div>

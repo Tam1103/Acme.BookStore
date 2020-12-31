@@ -49,11 +49,11 @@
             <div class="grid_1_of_4 images_1_of_4">
                 @if (photo != null)
                 {
-                    <a asp-controller="product" asp-action="details" asp-route-id="@product.Id"><img src="~/books/@photo" alt="" /></a>
+                    <a asp-controller="product" asp-action="details" asp-route-id="@product.Id"><img src="~/images/@photo" alt="" /></a>
                 }
                 else
                 {
-                    <a href="preview.html"><img src="~/books/default.png" alt="featured_image_none" /></a>
+                    <a href="preview.html"><img src="~/images/default.png" alt="featured_image_none" /></a>
                 }
                 <h2>@product.Name</h2>
                 <div class="price-details">

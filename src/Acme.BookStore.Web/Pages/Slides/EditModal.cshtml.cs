@@ -30,17 +30,13 @@ namespace Acme.BookStore.Web.Pages.Slides
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var dto =  ObjectMapper.Map<EditSlideViewModel, CreateUpdateSlideDto>(Slide);
-            if (Slide.File != null && !string.IsNullOrEmpty(Slide.File.FileName))
+            var dto = ObjectMapper.Map<EditSlideViewModel, CreateUpdateSlideDto>(Slide);
+            var fileName = ImageUpload(Slide.File, _ihostingEnvironment);
+            if (fileName != " ")
             {
-                var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + Slide.File.FileName;
-                var path = Path.Combine(this._ihostingEnvironment.WebRootPath, "slides", fileName);
-                var stream = new FileStream(path, FileMode.Create);
-                await Slide.File.CopyToAsync(stream);
                 dto.Name = fileName;
             }
-
-            await _slideAppService.UpdateAsync(
+                await _slideAppService.UpdateAsync(
                 Slide.Id,
                 dto);
 
