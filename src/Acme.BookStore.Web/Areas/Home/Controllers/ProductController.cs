@@ -16,7 +16,7 @@ namespace Acme.BookStore.Web.Areas.Home.Controllers
         }
         [Route("")]
         [Route("index")]
-        public IActionResult Index()
+        private IActionResult Index()
         {
             return View();
         }

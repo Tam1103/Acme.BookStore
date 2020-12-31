@@ -14,12 +14,12 @@ namespace Acme.BookStore.Web.Areas.Home.Controllers
 
         public IActionResult Index()
         {
-            var product = _context.Books.OrderByDescending(p => p.Id).Take(8).ToList();
+            var product = _context.Books.OrderByDescending(p => p.Id).Take(4).ToList();
             return View("Index", product);
         }
 
         [Route("error")]
-        public IActionResult Error()
+        private IActionResult Error()
         {
             return View();
         }

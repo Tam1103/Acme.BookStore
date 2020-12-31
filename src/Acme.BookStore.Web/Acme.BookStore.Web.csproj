@@ -69,8 +69,6 @@
     <None Include="Views\Shared\Components\Search\Index.cshtml" />
     <None Include="Views\Shared\Components\SlideShow\Index.cshtml" />
     <None Include="Views\Shared\_UserLayout.cshtml" />
-    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
-    <None Include="Views\_ViewStart.cshtml" />
     <None Include="wwwroot\public\images\cart.psd" />
     <None Include="wwwroot\public\images\cart2.psd" />
     <None Include="wwwroot\public\images\logo.psd" />
