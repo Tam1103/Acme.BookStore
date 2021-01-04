@@ -1,8 +1,8 @@
-using Volo.Abp.AspNetCore.Mvc.UI.RazorPages;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Acme.BookStore.Web.Pages.Books
 {
-    public class IndexModel : AbpPageModel
+    public class IndexModel : PageModel
     {
         public void OnGet()
         {

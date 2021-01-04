@@ -1,7 +1,7 @@
 ﻿@page
 @using Acme.BookStore.Localization
 @using Acme.BookStore.Permissions
-@using Acme.BookStore.Web.Pages.Slides
+@using Acme.BookStore.Web.Pages.Books
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.Extensions.Localization
 @model IndexModel
@@ -9,11 +9,22 @@
 @inject IAuthorizationService AuthorizationService
 @section scripts
 {
-    <abp-script-bundle>
-        <abp-script src="/Pages/Slides/Slide.js" />
-    </abp-script-bundle>
+    <abp-script src="/Pages/Slides/Inde.js" />
+    <script type="text/javascript">
+      (function () {
+          var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+          link.type = 'image/x-icon';
+          link.rel = 'shortcut icon';
+          link.href = 'img/CV.jpg';
+          document.getElementsByTagName('head')[0].appendChild(link);
+      })();
+    </script>
 }
-
+@section styles {
+    <abp-style-bundle>
+        <abp-style src="/Pages/Index.css" />
+    </abp-style-bundle>
+}
 <abp-card>
     <abp-card-header>
         <abp-row>
@@ -23,10 +34,10 @@
             <abp-column size-md="_6" class="text-right">
                 @if (await AuthorizationService.IsGrantedAsync(BookStorePermissions.Slides.Create))
                 {
-                <abp-button id="NewSlideButton"
-                            text="@L["NewSlide"].Value"
-                            icon="plus"
-                            button-type="Primary" />
+                    <abp-button id="NewSlideButton"
+                                text="@L["NewSlide"].Value"
+                                icon="plus"
+                                button-type="Primary" />
                 }
             </abp-column>
         </abp-row>

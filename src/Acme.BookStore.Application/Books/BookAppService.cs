@@ -96,7 +96,7 @@ namespace Acme.BookStore.Books
                 ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
             );
         }
-        public List<BookDto> GetBookListByAuthorId(Guid id)
+        public List<BookDto> GetListByCategoryId(Guid id)
         {
             var myList =  Repository.Where(s => s.AuthorId == id).ToList();
             //Execute the query and get the book with author

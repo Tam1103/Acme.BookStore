@@ -7,7 +7,7 @@ namespace Acme.BookStore.Web
     public class BookStoreBrandingProvider : DefaultBrandingProvider
     {
         public override string AppName => "BookStore";
-        //public override string LogoUrl => "src/Acme.BookStore.Web/wwwroot/img/CV.jpg";
-        //public override string LogoReverseUrl => LogoUrl;
+        public override string LogoUrl => "src/Acme.BookStore.Web/wwwroot/img/CV.jpg";
+        public override string LogoReverseUrl => LogoUrl;
     }   
 }

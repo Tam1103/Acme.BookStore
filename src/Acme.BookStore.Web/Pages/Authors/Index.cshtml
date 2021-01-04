@@ -10,7 +10,21 @@
 
 @section scripts
 {
-    <abp-script src="/Pages/Authors/Author.js" />
+    <abp-script src="/Pages/Authors/Index.js" />
+    <script type="text/javascript">
+      (function () {
+          var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+          link.type = 'image/x-icon';
+          link.rel = 'shortcut icon';
+          link.href = 'img/CV.jpg';
+          document.getElementsByTagName('head')[0].appendChild(link);
+      })();
+    </script>
+}
+@section styles {
+    <abp-style-bundle>
+        <abp-style src="/Pages/Index.css" />
+    </abp-style-bundle>
 }
 <abp-card>
     <abp-card-header>
@@ -20,12 +34,12 @@
             </abp-column>
             <abp-column size-md="_6" class="text-right">
                 @if (await AuthorizationService
-                .IsGrantedAsync(BookStorePermissions.Authors.Create))
+                 .IsGrantedAsync(BookStorePermissions.Authors.Create))
                 {
-                <abp-button id="NewAuthorButton"
-                            text="@L["NewAuthor"].Value"
-                            icon="plus"
-                            button-type="Primary" />
+                    <abp-button id="NewAuthorButton"
+                                text="@L["NewAuthor"].Value"
+                                icon="plus"
+                                button-type="Primary" />
                 }
             </abp-column>
         </abp-row>

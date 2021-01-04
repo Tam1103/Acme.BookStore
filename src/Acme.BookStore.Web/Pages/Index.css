@@ -1,0 +1,49 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&display=swap');
+html,body {
+  
+}
+
+collapse navbar-collapse{
+    display: flex!important;
+    align-items: flex-end;
+    flex-wrap:wrap;
+    justify-content:right;
+}
+nav#main-navbar a {
+    color: #28a745;
+    font-weight:lighter;
+}
+
+nav#main-navbar a:hover{
+   color:#ffffff;
+}
+
+.dropdown-item{
+    background: #000000 !important;
+}
+
+body.abp-application-layout.bg-light {
+    background-color: #000000 !important;
+    color:#ffffff;
+}
+
+td.sorting_1 {
+}
+
+th.sorting, th.sorting_asc {
+    color: #28a745;
+}
+td.sorting_1 {
+    color: #0067bf;
+}
+a {
+    text-decoration: none;
+}
+
+*{
+    font-weight:bold!important;
+}
+
+.modal-content {
+    color: #000000 !important;
+}

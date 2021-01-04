@@ -15,22 +15,27 @@ using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Authentication.JwtBearer;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.Localization;
+using Volo.Abp.AspNetCore.Mvc.UI;
+using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
+using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity.Web;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
+using Volo.Abp.PermissionManagement.Web;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.TenantManagement.Web;
 using Volo.Abp.UI.Navigation.Urls;
+using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Acme.BookStore.Permissions;
-using Abp.AspNetCore.Mvc.UI.Theme.AdminLTE;
 
 namespace Acme.BookStore.Web
 {
@@ -42,7 +47,6 @@ namespace Acme.BookStore.Web
         typeof(AbpIdentityWebModule),
         typeof(AbpAccountWebIdentityServerModule),
         typeof(AbpAspNetCoreMvcUiBasicThemeModule),
-		typeof(AbpAspNetCoreMvcUiAdminLTEThemeModule),
         typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
         typeof(AbpTenantManagementWebModule),
         typeof(AbpAspNetCoreSerilogModule),
@@ -97,7 +101,6 @@ namespace Acme.BookStore.Web
                 options.Conventions.AuthorizePage("/Slides/EditModal", BookStorePermissions.Slides.Edit);
             });
 
-            context.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         private void ConfigureUrls(IConfiguration configuration)
@@ -138,10 +141,7 @@ namespace Acme.BookStore.Web
                     options.FileSets.ReplaceEmbeddedByPhysical<BookStoreApplicationContractsModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Acme.BookStore.Application.Contracts"));
                     options.FileSets.ReplaceEmbeddedByPhysical<BookStoreApplicationModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Acme.BookStore.Application"));
                     options.FileSets.ReplaceEmbeddedByPhysical<BookStoreWebModule>(hostingEnvironment.ContentRootPath);
-                
-				  // AdminLTE teması
-                    options.FileSets.ReplaceEmbeddedByPhysical<BookStoreApplicationModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}..{Path.DirectorySeparatorChar}Abp.AspNetCore.Mvc.UI.Theme.AdminLTE"));
-				});
+                });
             }
         }
 
@@ -169,7 +169,6 @@ namespace Acme.BookStore.Web
             {
                 options.MenuContributors.Add(new BookStoreMenuContributor());
             });
-
         }
 
         private void ConfigureAutoApiControllers()
@@ -188,8 +187,6 @@ namespace Acme.BookStore.Web
                     options.SwaggerDoc("v1", new OpenApiInfo { Title = "BookStore API", Version = "v1" });
                     options.DocInclusionPredicate((docName, description) => true);
                     options.CustomSchemaIds(type => type.FullName);
-
-                    //options.OperationFilter<SwaggerFileOperationFilter>();
                 }
             );
         }

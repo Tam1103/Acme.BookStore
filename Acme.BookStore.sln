@@ -39,10 +39,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acme.BookStore.HttpApi.Clie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acme.BookStore.DbMigrator", "src\Acme.BookStore.DbMigrator\Acme.BookStore.DbMigrator.csproj", "{AA94D832-1CCC-4715-95A9-A483F23A1A5D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "theme", "theme", "{F9F74276-4766-4AA1-80C3-CC0BFB3C483B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abp.AspNetCore.Mvc.UI.Theme.AdminLTE", "theme\Abp.AspNetCore.Mvc.UI.Theme.AdminLTE\Abp.AspNetCore.Mvc.UI.Theme.AdminLTE.csproj", "{A10160A9-A3D3-4CBA-A66A-3FAEDE77C6EB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,10 +109,6 @@ Global
 		{AA94D832-1CCC-4715-95A9-A483F23A1A5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA94D832-1CCC-4715-95A9-A483F23A1A5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA94D832-1CCC-4715-95A9-A483F23A1A5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A10160A9-A3D3-4CBA-A66A-3FAEDE77C6EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A10160A9-A3D3-4CBA-A66A-3FAEDE77C6EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A10160A9-A3D3-4CBA-A66A-3FAEDE77C6EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A10160A9-A3D3-4CBA-A66A-3FAEDE77C6EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,7 +130,6 @@ Global
 		{E512F4D9-9375-480F-A2F6-A46509F9D824} = {04DBDB01-70F4-4E06-B468-8F87850B22BE}
 		{EF480016-9127-4916-8735-D2466BDBC582} = {04DBDB01-70F4-4E06-B468-8F87850B22BE}
 		{AA94D832-1CCC-4715-95A9-A483F23A1A5D} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
-		{A10160A9-A3D3-4CBA-A66A-3FAEDE77C6EB} = {F9F74276-4766-4AA1-80C3-CC0BFB3C483B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Acme.BookStore.Authors;
 using Acme.BookStore.Books;
-using Acme.BookStore.Slides;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
@@ -15,18 +14,15 @@ namespace Acme.BookStore
         private readonly IRepository<Book, Guid> _bookRepository;
         private readonly IAuthorRepository _authorRepository;
         private readonly AuthorManager _authorManager;
-        private readonly IRepository<Slide, Guid> _slideRepository;
 
         public BookStoreDataSeederContributor(
             IRepository<Book, Guid> bookRepository,
             IAuthorRepository authorRepository,
-            AuthorManager authorManager,
-            IRepository<Slide, Guid> slideRepository)
+            AuthorManager authorManager)
         {
             _bookRepository = bookRepository;
             _authorRepository = authorRepository;
             _authorManager = authorManager;
-            _slideRepository = slideRepository;
         }
 
         public async Task SeedAsync(DataSeedContext context)
@@ -35,6 +31,7 @@ namespace Acme.BookStore
             {
                 return;
             }
+
             var orwell = await _authorRepository.InsertAsync(
                 await _authorManager.CreateAsync(
                     "George Orwell",
@@ -76,23 +73,6 @@ namespace Acme.BookStore
                 },
                 autoSave: true
             );
-
-            await _slideRepository.InsertAsync(
-               new Slide
-               {
-                   Name = "12102020112534images (3).jpg"
-               },
-               autoSave: true
-                );
-
-            await _slideRepository.InsertAsync(
-                 new Slide
-                 {
-                     Name = "12112020024942images (4).jpg"
-                 },
-                 autoSave: true
-               );
-
         }
     }
 }
