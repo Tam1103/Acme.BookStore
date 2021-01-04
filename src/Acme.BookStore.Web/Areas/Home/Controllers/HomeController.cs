@@ -18,10 +18,11 @@ namespace Acme.BookStore.Web.Areas.Home.Controllers
             return View("Index", product);
         }
 
+        [HttpGet]
         [Route("error")]
-        private IActionResult Error()
+        public IActionResult Error()
         {
-            return View();
+            return View("Error");
         }
     }
 }
