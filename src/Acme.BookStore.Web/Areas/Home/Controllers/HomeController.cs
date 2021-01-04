@@ -17,9 +17,7 @@ namespace Acme.BookStore.Web.Areas.Home.Controllers
             var product = _context.Books.OrderByDescending(p => p.Id).Take(4).ToList();
             return View("Index", product);
         }
-
-        [HttpGet]
-        [Route("error")]
+        
         public IActionResult Error()
         {
             return View("Error");
