@@ -30,14 +30,13 @@ namespace Acme.BookStore.Web.Pages.Slides
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var dto =  ObjectMapper.Map<EditSlideViewModel, CreateUpdateSlideDto>(Slide);
-
-            var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + Slide.File.FileName;
-            var path = Path.Combine(this._ihostingEnvironment.WebRootPath, "slide", fileName);
-            var stream = new FileStream(path, FileMode.Create);
-            await Slide.File.CopyToAsync(stream);
-            dto.Name = fileName;
-            await _slideAppService.UpdateAsync(
+            var dto = ObjectMapper.Map<EditSlideViewModel, CreateUpdateSlideDto>(Slide);
+            var fileName = ImageUpload(Slide.File, _ihostingEnvironment);
+            if (fileName != " ")
+            {
+                dto.Name = fileName;
+            }
+                await _slideAppService.UpdateAsync(
                 Slide.Id,
                 dto);
 
@@ -51,6 +50,11 @@ namespace Acme.BookStore.Web.Pages.Slides
 
             [StringLength(SlideConsts.MaxNameLength)]
             public string Name { get; set; }
+
+            [HiddenInput]
+            public string Image { get; set; }
+
+            [Required]
             [Display(Name = "File")]
             public IFormFile File { get; set; }
             public string Title { get; set; }
