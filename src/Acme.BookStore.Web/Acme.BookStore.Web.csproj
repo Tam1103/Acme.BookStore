@@ -23,32 +23,30 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\Authors\Index.cshtml" />
-    <Content Remove="Pages\Books\AuthorList.cshtml" />
     <Content Remove="Pages\Books\Index.cshtml" />
     <Content Remove="Pages\Slides\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Pages\**\*.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Pages\**\*.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.0.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Acme.BookStore.Application\Acme.BookStore.Application.csproj" />
     <ProjectReference Include="..\Acme.BookStore.HttpApi\Acme.BookStore.HttpApi.csproj" />
     <ProjectReference Include="..\Acme.BookStore.EntityFrameworkCore.DbMigrations\Acme.BookStore.EntityFrameworkCore.DbMigrations.csproj" />
+	<ProjectReference Include="..\..\theme\Abp.AspNetCore.Mvc.UI.Theme.AdminLTE\Abp.AspNetCore.Mvc.UI.Theme.AdminLTE.csproj" />
     <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic" Version="3.3.1" />
     <PackageReference Include="Volo.Abp.Autofac" Version="3.3.1" />
     <PackageReference Include="Volo.Abp.Swashbuckle" Version="3.3.1" />
@@ -61,20 +59,33 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Books\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\Authors\Index.cshtml" />
-    <_ContentIncludedByDefault Remove="Pages\Books\AuthorList.cshtml" />
-    <_ContentIncludedByDefault Remove="Pages\Books\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\Authors\Index.cshtml" />
-    <None Include="Pages\Categorys\Index.cshtml" />
+    <None Include="Areas\_ViewImports.cshtml" />
     <None Include="Pages\Books\Index.cshtml" />
     <None Include="Pages\Slides\Index.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Product\Details.cshtml" />
+    <None Include="Views\Product\ProductDisplay.cshtml" />
+    <None Include="Views\Shared\Components\Category\Index.cshtml" />
+    <None Include="Views\Shared\Components\Search\Index.cshtml" />
+    <None Include="Views\Shared\Components\SlideShow\Index.cshtml" />
+    <None Include="Views\Shared\_UserLayout.cshtml" />
+    <None Include="wwwroot\public\images\cart.psd" />
+    <None Include="wwwroot\public\images\cart2.psd" />
+    <None Include="wwwroot\public\images\logo.psd" />
+    <None Include="wwwroot\public\js\css3-mediaqueries.js" />
+    <None Include="wwwroot\public\js\fwslider.js" />
+    <None Include="wwwroot\public\js\jquery-ui.min.js" />
+    <None Include="wwwroot\public\js\jquery.easydropdown.js" />
+    <None Include="wwwroot\public\js\jquery.etalage.min.js" />
+    <None Include="wwwroot\public\js\jquery.flexisel.js" />
+    <None Include="wwwroot\public\js\jquery.jscrollpane.min.js" />
+    <None Include="wwwroot\public\js\jquery.magnific-popup.js" />
+    <None Include="wwwroot\public\js\jquery.nivo.slider.js" />
+    <None Include="wwwroot\public\js\jquery1.min.js" />
+    <None Include="wwwroot\public\js\login.js" />
+    <None Include="wwwroot\public\js\megamenu.js" />
+    <None Include="wwwroot\public\js\slides.min.jquery.js" />
+    <None Include="wwwroot\public\js\zoome-e.js" />
     <None Include="wwwroot\js\easing.js" />
     <None Include="wwwroot\js\easyResponsiveTabs.js" />
     <None Include="wwwroot\js\jquery-1.7.2.min.js" />
@@ -84,14 +95,82 @@
     <None Include="wwwroot\js\script.js" />
     <None Include="wwwroot\js\slides.min.jquery.js" />
     <None Include="wwwroot\js\startstop-slider.js" />
+    <None Include="wwwroot\user\images\Thumbs.db" />
+    <None Include="wwwroot\user\js\easing.js" />
+    <None Include="wwwroot\user\js\easyResponsiveTabs.js" />
+    <None Include="wwwroot\user\js\jquery-1.7.2.min.js" />
+    <None Include="wwwroot\user\js\jquery.accordion.js" />
+    <None Include="wwwroot\user\js\jquery.easing.js" />
+    <None Include="wwwroot\user\js\move-top.js" />
+    <None Include="wwwroot\user\js\script.js" />
+    <None Include="wwwroot\user\js\slides.min.jquery.js" />
+    <None Include="wwwroot\user\js\startstop-slider.js" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\less\animated.less" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\less\core.less" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\less\icons.less" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\less\larger.less" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\less\list.less" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\less\path.less" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\less\variables.less" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <None Include="wwwroot\user\Login\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <None Include="wwwroot\user\Login\js\main.js" />
+    <None Include="wwwroot\user\Login\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\user\Login\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\user\Login\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\user\Login\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\user\Login\vendor\bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\user\Login\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\user\Login\vendor\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\user\Login\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\user\Login\vendor\bootstrap\js\popper.js" />
+    <None Include="wwwroot\user\Login\vendor\bootstrap\js\popper.min.js" />
+    <None Include="wwwroot\user\Login\vendor\bootstrap\js\tooltip.js" />
+    <None Include="wwwroot\user\Login\vendor\jquery\jquery-3.2.1.min.js" />
+    <None Include="wwwroot\user\Login\vendor\select2\select2.js" />
+    <None Include="wwwroot\user\Login\vendor\select2\select2.min.js" />
+    <None Include="wwwroot\user\Login\vendor\tilt\tilt.jquery.min.js" />
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Authors\Index.cshtml" />
+    <Folder Include="Areas\Home\Data\" />
+    <Folder Include="Areas\Home\Models\" />
+    <Folder Include="Areas\Home\Views\" />
+    <Folder Include="Components\" />
+    <Folder Include="wwwroot\admin\" />
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Books\AuthorList.cshtml" />
+    <None Update="Pages\Authors\Author.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Pages\Books\Book.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Pages\Slides\Slide.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

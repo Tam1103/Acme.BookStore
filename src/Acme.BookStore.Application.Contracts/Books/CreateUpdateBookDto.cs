@@ -8,9 +8,10 @@ namespace Acme.BookStore.Books
         [Required]
         [StringLength(128)]
         public string Name { get; set; }
-
-        public string Image { get; set; }
         public Guid AuthorId { get; set; }
+
+        [Required]
+        public string Image { get; set; }
 
         [Required]
         public BookType Type { get; set; } = BookType.Undefined;

@@ -1,11 +1,10 @@
-﻿using Abp.AutoMapper;
-using System;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Acme.BookStore.Slides
 {
-    [AutoMapFrom(typeof(Slide))]
-    public class Slide : AuditedAggregateRoot<Guid>
+    public class Slide : FullAuditedAggregateRoot<Guid>
     {
         public string Name { get; set; }
         public string Title { get; set; }

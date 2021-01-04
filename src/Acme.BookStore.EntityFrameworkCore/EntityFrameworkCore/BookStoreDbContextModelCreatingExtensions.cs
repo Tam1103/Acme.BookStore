@@ -42,8 +42,6 @@ namespace Acme.BookStore.EntityFrameworkCore
                 b.HasIndex(x => x.Name);
             });
 
-
-
             builder.Entity<Slide>(b =>
             {
                 b.ToTable(BookStoreConsts.DbTablePrefix + "Slides", BookStoreConsts.DbSchema);

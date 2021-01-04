@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Threading.Tasks;
 using Acme.BookStore.Slides;
+using Acme.BookStore.Web.Pages.Slides;
+using Acme.BookStore.Web.Pages;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,12 +33,8 @@ namespace Acme.BookStore.Web.Pages.Slides
 
             var dto = ObjectMapper.Map<CreateSlideViewModel, CreateUpdateSlideDto>(Slide);
 
-            var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + Slide.File.FileName;
-            var path = Path.Combine(this._ihostingEnvironment.WebRootPath, "slide", fileName);
-            var stream = new FileStream(path, FileMode.Create);
-            await Slide.File.CopyToAsync(stream);
+            var fileName = ImageUpload(Slide.File, _ihostingEnvironment);
             dto.Name = fileName;
-
             await _slideAppService.CreateAsync(dto);
             return NoContent();
         }
