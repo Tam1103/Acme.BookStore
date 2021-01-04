@@ -19,7 +19,7 @@ namespace Acme.BookStore.Web
 
             app.Run(async context =>
             {
-                 context.Response.Redirect("/error");
+                 context.Response.Redirect("/home/error");
             });
         }
     }
