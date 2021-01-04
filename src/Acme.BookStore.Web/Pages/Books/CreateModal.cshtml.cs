@@ -9,31 +9,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 using Microsoft.AspNetCore.Http;
-using Acme.BookStore.Blob;
-using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Acme.BookStore.Web.Pages.Books
 {
     public class CreateModalModel : BookStorePageModel
     {
-        private IWebHostEnvironment ihostingEnvironment;
+        private readonly IWebHostEnvironment _hostEnvironment;
         [BindProperty]
         public CreateBookViewModel Book { get; set; }
-
         public List<SelectListItem> Authors { get; set; }
         public bool Uploaded { get; set; } = false;
         private readonly IBookAppService _bookAppService;
-        public CreateModalModel(IBookAppService bookAppService, IWebHostEnvironment _ihostingEnvironment)
+        public CreateModalModel(IBookAppService bookAppService, IWebHostEnvironment hostEnvironment)
         {
             _bookAppService = bookAppService;
-            ihostingEnvironment = _ihostingEnvironment;
-        }
+            _hostEnvironment = hostEnvironment;
+        }   
 
         public async Task OnGetAsync()
         {
             Book = new CreateBookViewModel();
-
             var authorLookup = await _bookAppService.GetAuthorLookupAsync();
             Authors = authorLookup.Items
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
@@ -43,11 +39,7 @@ namespace Acme.BookStore.Web.Pages.Books
         public async Task<IActionResult> OnPostAsync()
         {
             var dto = ObjectMapper.Map<CreateBookViewModel, CreateUpdateBookDto>(Book);
-
-            var fileName = DateTime.Now.ToString("MMddyyyyhhmmss") + Book.File.FileName;
-            var path = Path.Combine(this.ihostingEnvironment.WebRootPath, "my-files/host/my-file-container", fileName);
-            var stream = new FileStream(path, FileMode.Create);
-            await Book.File.CopyToAsync(stream);
+            string fileName = ImageUpload(Book.File,_hostEnvironment);
             dto.Image = fileName;
             await _bookAppService.CreateAsync(dto);
             return NoContent();

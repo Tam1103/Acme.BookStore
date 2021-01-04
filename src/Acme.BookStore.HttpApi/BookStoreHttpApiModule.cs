@@ -24,7 +24,6 @@ namespace Acme.BookStore
         {
             ConfigureLocalization();
         }
-
         private void ConfigureLocalization()
         {
             Configure<AbpLocalizationOptions>(options =>
@@ -37,4 +36,5 @@ namespace Acme.BookStore
             });
         }
     }
+    
 }
