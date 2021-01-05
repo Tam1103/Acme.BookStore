@@ -7,7 +7,7 @@
 @inject IdentityUserManager UserManager
 @model ApplicationMenu
 @{
-    string name = CurrentUser.UserName;
+    string name = CurrentUser.Name;
 }
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -25,7 +25,7 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="~/themes/adminlte/img/user2-160x160.jpg" class="img-circle elevation-2" alt="@name">
+                <img src="~/themes/adminlte/img/avatar5.png" class="img-circle elevation-2" alt="@name">
             </div>
             <div class="info">
                 <a href="~/Account/Manage" class="d-block">@name</a>
