@@ -29,7 +29,7 @@ namespace Acme.BookStore.Web.Pages.Authors
         {
             await _authorAppService.UpdateAsync(
                 Author.Id,
-                ObjectMapper.Map<EditAuthorViewModel, UpdateAuthorDto>(Author)
+                ObjectMapper.Map<EditAuthorViewModel, CreateUpdateAuthorDto>(Author)
             );
 
             return NoContent();

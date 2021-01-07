@@ -13,19 +13,16 @@ namespace Acme.BookStore
         : IDataSeedContributor, ITransientDependency
     {
         private readonly IRepository<Book, Guid> _bookRepository;
-        private readonly IAuthorRepository _authorRepository;
-        private readonly AuthorManager _authorManager;
+        private readonly IRepository<Author, Guid> _authorRepository;
         private readonly IRepository<Slide, Guid> _slideRepository;
 
         public BookStoreDataSeederContributor(
             IRepository<Book, Guid> bookRepository,
-            IAuthorRepository authorRepository,
-            AuthorManager authorManager,
+            IRepository<Author, Guid> authorRepository,
             IRepository<Slide, Guid> slideRepository)
         {
             _bookRepository = bookRepository;
             _authorRepository = authorRepository;
-            _authorManager = authorManager;
             _slideRepository = slideRepository;
         }
 
@@ -36,19 +33,23 @@ namespace Acme.BookStore
                 return;
             }
             var orwell = await _authorRepository.InsertAsync(
-                await _authorManager.CreateAsync(
-                    "George Orwell",
-                    new DateTime(1903, 06, 25),
-                    "Orwell produced literary criticism and poetry, fiction and polemical journalism; and is best known for the allegorical novella Animal Farm (1945) and the dystopian novel Nineteen Eighty-Four (1949)."
-                )
+               new Author
+               {
+                   Name = "George Orwell",
+                   BirthDate = new DateTime(1903, 06, 25),
+                   ShortBio = "Orwell produced literary criticism and poetry, fiction and polemical journalism; and is best known for the allegorical novella Animal Farm (1945) and the dystopian novel Nineteen Eighty-Four (1949)."
+               },
+                   autoSave: true
             );
 
             var douglas = await _authorRepository.InsertAsync(
-                await _authorManager.CreateAsync(
-                    "Douglas Adams",
-                    new DateTime(1952, 03, 11),
-                    "Douglas Adams was an English author, screenwriter, essayist, humorist, satirist and dramatist. Adams was an advocate for environmentalism and conservation, a lover of fast cars, technological innovation and the Apple Macintosh, and a self-proclaimed 'radical atheist'."
-                )
+                new Author
+                {
+                    Name = "Douglas Adams",
+                    BirthDate = new DateTime(1952, 03, 11),
+                    ShortBio = "Douglas Adams was an English author, screenwriter, essayist, humorist, satirist and dramatist. Adams was an advocate for environmentalism and conservation, a lover of fast cars, technological innovation and the Apple Macintosh, and a self-proclaimed 'radical atheist'."
+                },
+                    autoSave: true
             );
 
             await _bookRepository.InsertAsync(

@@ -27,7 +27,6 @@ namespace Acme.BookStore.Slides
             : base(repository)
         {
             _iHostEnvironment = webHostEnvironment;
-            //_authorRepository = authorRepository;
             GetPolicyName = BookStorePermissions.Slides.Default;
             GetListPolicyName = BookStorePermissions.Slides.Default;
             CreatePolicyName = BookStorePermissions.Slides.Create;

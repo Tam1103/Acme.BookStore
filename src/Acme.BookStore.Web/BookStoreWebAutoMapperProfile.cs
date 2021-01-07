@@ -12,15 +12,16 @@ namespace Acme.BookStore.Web
             //Define your AutoMapper configuration here for the Web project.
             CreateMap<BookDto, CreateUpdateBookDto>();
             CreateMap<SlideDto, CreateUpdateSlideDto>();
+            CreateMap<AuthorDto, CreateUpdateAuthorDto>();
             // ADD a NEW MAPPING
 
-            CreateMap<Pages.Authors.CreateModalModel.CreateAuthorViewModel, CreateAuthorDto>();
+            CreateMap<Pages.Authors.CreateModalModel.CreateAuthorViewModel, CreateUpdateAuthorDto>();
             CreateMap<Pages.Books.CreateModalModel.CreateBookViewModel, CreateUpdateBookDto>();
             CreateMap<Pages.Slides.CreateModalModel.CreateSlideViewModel, CreateUpdateSlideDto>();
 
             // ADD THESE NEW MAPPINGS
             CreateMap<AuthorDto, Pages.Authors.EditModalModel.EditAuthorViewModel>();
-            CreateMap<Pages.Authors.EditModalModel.EditAuthorViewModel,UpdateAuthorDto>();
+            CreateMap<Pages.Authors.EditModalModel.EditAuthorViewModel,CreateUpdateAuthorDto>();
 
 
             CreateMap<BookDto, Pages.Books.EditModalModel.EditBookViewModel>();
