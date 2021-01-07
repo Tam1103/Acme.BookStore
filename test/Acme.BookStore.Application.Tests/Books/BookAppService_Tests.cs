@@ -34,28 +34,7 @@ namespace Acme.BookStore.Books
                                        b.AuthorName == "George Orwell");
         }
 
-        [Fact]
-        public async Task Should_Create_A_Valid_Book()
-        {
-            var authors = await _authorAppService.GetListAsync(new GetAuthorListDto());
-            var firstAuthor = authors.Items.First();
-
-            //Act
-            var result = await _bookAppService.CreateAsync(
-                new CreateUpdateBookDto
-                {
-                    AuthorId = firstAuthor.Id,
-                    Name = "New test book 42",
-                    Price = 10,
-                    PublishDate = System.DateTime.Now,
-                    Type = BookType.ScienceFiction
-                }
-            );
-
-            //Assert
-            result.Id.ShouldNotBe(Guid.Empty);
-            result.Name.ShouldBe("New test book 42");
-        }
+    
 
         [Fact]
         public async Task Should_Not_Create_A_Book_Without_Name()

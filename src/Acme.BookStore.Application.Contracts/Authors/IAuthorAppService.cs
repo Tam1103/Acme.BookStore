@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
 namespace Acme.BookStore.Authors
 {
-    public interface IAuthorAppService : IApplicationService
+    public interface IAuthorAppService : ICrudAppService< //Defines CRUD methods
+            AuthorDto, //Used to show author
+            Guid, //Primary key of the author entity
+            PagedAndSortedResultRequestDto, //Used for paging/sorting
+            CreateUpdateAuthorDto> //Used to create/update a author 
     {
-        Task<AuthorDto> GetAsync(Guid id);
 
-        Task<PagedResultDto<AuthorDto>> GetListAsync(GetAuthorListDto input);
-
-        Task<AuthorDto> CreateAsync(CreateAuthorDto input);
-
-        Task UpdateAsync(Guid id, UpdateAuthorDto input);
-
-        Task DeleteAsync(Guid id);
     }
 }
 

@@ -17,10 +17,17 @@ namespace Acme.BookStore.Web
         {
             app.InitializeApplication();
 
-            app.Run(async context =>
+            app.UseEndpoints(endpoints =>
             {
-                 context.Response.Redirect("/home/error");
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=home}/{action=error}/{id?}");
             });
+
+            //app.Run(async context =>
+            //{
+            //     context.Response.Redirect("/home/error");
+            //});
         }
     }
 }

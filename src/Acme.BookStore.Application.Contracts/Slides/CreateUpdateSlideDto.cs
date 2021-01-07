@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Acme.BookStore.Slides
 {
-    [Serializable]
     public class CreateUpdateSlideDto
     {
         [Required]

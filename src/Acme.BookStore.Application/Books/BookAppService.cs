@@ -20,11 +20,11 @@ namespace Acme.BookStore.Books
             CreateUpdateBookDto>, //Used to create/update a book
         IBookAppService //implement the IBookAppService
     {
-        private readonly IAuthorRepository _authorRepository;
+        private readonly IRepository<Author,Guid> _authorRepository;
 
         public BookAppService(
             IRepository<Book, Guid> repository,
-            IAuthorRepository authorRepository)
+            IRepository<Author,Guid> authorRepository)
             : base(repository)
         {
             _authorRepository = authorRepository;
