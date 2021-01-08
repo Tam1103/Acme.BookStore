@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Acme.BookStore.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList;
@@ -17,7 +18,6 @@ namespace Acme.BookStore.Web.Areas.Home.Controllers
         {
             return View();
         }
-
         public IActionResult ProductDisplay(Guid id, int? page)
         {
             var pageNumber = page ?? 1;
@@ -29,9 +29,8 @@ namespace Acme.BookStore.Web.Areas.Home.Controllers
             {
                 ViewBag.notification = "Sorry we are updating, Thanks";
             }
-            return View("ProductDisplay",product.ToPagedList(pageNumber, 4));
+            return View("ProductDisplay", product.ToPagedList(pageNumber, 4));
         }
-        
         public IActionResult Details(Guid id)
         {
             var product = db.Books.Find(id);
@@ -40,8 +39,18 @@ namespace Acme.BookStore.Web.Areas.Home.Controllers
             var category = db.Authors.Find(product.AuthorId);
             ViewBag.nameCategory = category.Name;
             ViewBag.releatedProducts = db.Books.Where(p => p.AuthorId == product.AuthorId && p.Id != product.Id).ToList();
-           
+
             return View("Details", product);
         }
+        // public async Task<IActionResult> SearchDisplay(string searchString, int? page)
+        // {
+        //     var pageNumber = page ?? 1;
+        //     var books = from m in db.Books select m;
+        //     if (!String.IsNullOrEmpty(searchString))
+        //     {
+        //         books = books.Where(s => s.Name.Contains(searchString));
+        //     }
+        //     return View("ProductDisplay", await books.ToPagedListAsync(pageNumber, 4));
+        // }
     }
 }

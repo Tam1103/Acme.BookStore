@@ -98,11 +98,6 @@
                         <div class="clear"></div>
                     </ul>
                 </div>
-                <div class="search_box">
-                    <form>
-                        <input type="text" value="SEARCH" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'SEARCH';}"><input type="submit" value="">
-                    </form>
-                </div>
                 @await Component.InvokeAsync("Search")
                 <div class="clear"></div>
             </div>

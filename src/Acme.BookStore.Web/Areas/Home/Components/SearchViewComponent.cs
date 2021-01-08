@@ -1,5 +1,5 @@
-﻿using Acme.BookStore.Authors;
-using Acme.BookStore.EntityFrameworkCore;
+﻿using Acme.BookStore.EntityFrameworkCore;
+using Acme.BookStore.Books;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +15,10 @@ namespace Acme.BookStore.Web.Areas.Home.Components
         {
             db = _db;
         }
-
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            List<Author> categories = db.Authors.ToList();
-            return View("Index",categories);
-        } 
+            List<Book> slideshow = db.Books.ToList();
+            return View("Index", slideshow);
+        }
     }
 }
