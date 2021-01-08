@@ -4,7 +4,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Acme.BookStore.Slides
 {
-    public class Slide : FullAuditedAggregateRoot<Guid>
+    public class Slide : AuditedAggregateRoot<Guid>
     {
         public string Name { get; set; }
         public string Title { get; set; }

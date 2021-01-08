@@ -59,6 +59,5 @@ namespace Acme.BookStore.Slides
             slide.Detail = detail;
             await Repository.UpdateAsync(slide);
         }
-
     }
 }
