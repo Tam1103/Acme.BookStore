@@ -2,50 +2,67 @@
 @{
     Layout = null;
 }
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="~/css/slider.css">
+<style>
+    .mySlides {
+        display: none;
+    }
 
-<div class="header_bottom_right">
-    <div class="slider">
-        <div id="slider">
-            <div id="mover">
+    .slide-box {
+        display: flex;
+        min-height: 380px;
+    }
+</style>
 
-                @for (int i = 0; i < Model.Count(); i++)
-                {
-                    <div id="slide-1" class="slide">
-                        <div class="slider-img">
-                            <a href="~/images/@Model[i].Name"><img src="~/images/@Model[i].Name" alt="learn more" /></a>
-                        </div>
-                        <div class="slider-text">
-                            <h1>@Model[i].Title<br><span>SALE</span></h1>
-                            <h2>Sale @Model[i].Sale% UpTo </h2>
-                            <div class="features_list">
-                                <h4>@Model[i].Detail</h4>
+<body>
+    <div class="header_bottom_right">
+        <div class="slider">
+            <div id="slider">
+                <div class="w3-content w3-display-container">
+                    @foreach (var item in Model)
+                    {
+                        <div class="mySlides">
+                            <div class="slide-box">
+                                <img src="~/images/@item.Name">
+                                <div class="slider-text">
+                                    <h1>@item.Title<br><span>SALE</span></h1>
+                                    <h2>UPTo @item.Sale% OFF</h2>
+                                    <div class="features_list">
+                                        <h4>@item.Detail</h4>
+                                    </div>
+                                    <a href="preview.html" class="button">Shop Now</a>
+                                </div>
                             </div>
-                            <a href="preview.html" class="button">Shop Now</a>
                         </div>
-                        <div class="clear"></div>
-                    </div>
-
-                    i++;
-                    @if(i == Model.Count()) { break; }
-
-                    <div class="slide">
-                        <div class="slider-text">
-                            <h1>@Model[i].Title<br><span>SALE</span></h1>
-                            <h2>Sale @Model[i].Sale% UpTo </h2>
-                            <div class="features_list">
-                                <h4>@Model[i].Detail</h4>
-                            </div>
-                            <a href="preview.html" class="button">Shop Now</a>
-                        </div>
-                        <div class="slider-img">
-                            <a href="~/images/@Model[i].Name"><img src="~/images/@Model[i].Name" alt="learn more" /></a>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                }
-
+                    }
+                    <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                    <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+                </div>
             </div>
         </div>
-        <div class="clear"></div>
     </div>
-</div>
+</body>
+<script>
+    var slideIndex = 1;
+    showDivs(slideIndex);
+
+    function plusDivs(n) {
+        showDivs(slideIndex += n);
+    }
+
+    function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        if (n > x.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = x.length }
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        x[slideIndex - 1].style.display = "block";
+    }
+</script>
+</html>
