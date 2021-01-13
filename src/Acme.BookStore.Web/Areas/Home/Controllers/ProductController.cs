@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Linq;
-using Acme.BookStore.EntityFrameworkCore;
+using Abp.Application.Services.Dto;
+using Acme.BookStore.Authors;
+using Acme.BookStore.Books;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList;
 
@@ -8,40 +9,43 @@ namespace Acme.BookStore.Web.Areas.Home.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly BookStoreDbContext db;
-        public ProductController(BookStoreDbContext _db)
+        private readonly EfCoreAuthorRepository _authorRepository;
+        private readonly EfCoreBookRepository _bookRepository;
+        public ProductController(EfCoreBookRepository bookRepository, EfCoreAuthorRepository authorRepository)
         {
-            db = _db;
+            _bookRepository = bookRepository;
+            _authorRepository = authorRepository;
         }
         private IActionResult Index()
         {
             return View();
         }
-
         public IActionResult ProductDisplay(Guid id, int? page)
         {
-            var pageNumber = page ?? 1;
-            var category = db.Authors.Find(id);
-            ViewBag.category = category;
-            ViewBag.nameCategory = category.Name;
-            var product = db.Books.Where(b => b.AuthorId == id);
-            if (!product.Any())
+            var pageSize = 2;
+            var pageNumber = page ?? 1;//How many pages
+
+            var filter = new PagedAndSortedResultRequestDto
+            {
+                SkipCount = (pageNumber - 1) * pageSize,//Ignore the number
+                MaxResultCount = pageSize
+            };
+            var category = _authorRepository.GetAsync(id);
+            ViewBag.nameCategory = category.Result.Name;
+            var product = _bookRepository.GetListBookByAuthorId(id,filter);
+            if (product.Result.Count == 0)
             {
                 ViewBag.notification = "Sorry we are updating, Thanks";
             }
-            return View("ProductDisplay",product.ToPagedList(pageNumber, 4));
+            return View("ProductDisplay",product);
         }
-        
         public IActionResult Details(Guid id)
         {
-            var product = db.Books.Find(id);
-            ViewBag.featuredPhoto = product.Image;
-
-            var category = db.Authors.Find(product.AuthorId);
-            ViewBag.nameCategory = category.Name;
-            ViewBag.releatedProducts = db.Books.Where(p => p.AuthorId == product.AuthorId && p.Id != product.Id).ToList();
-           
-            return View("Details", product);
+            var product = _bookRepository.GetAsync(id);
+            ViewBag.featuredPhoto = product.Result.Image;
+            var category = _authorRepository.GetAsync(product.Result.AuthorId);
+            ViewBag.nameCategory = category.Result.Name;
+            return View("Details",product);
         }
     }
 }

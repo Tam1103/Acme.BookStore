@@ -17,8 +17,9 @@ namespace Acme.BookStore.Authors
        IAuthorAppService //implement the IAppService
     {
         public AuthorAppService(
-            IRepository<Author, Guid> repository)
-            : base(repository)
+            IAuthorRepository authorRepository
+            )
+            : base(authorRepository)
         {
             GetPolicyName = BookStorePermissions.Authors.Default;
             GetListPolicyName = BookStorePermissions.Authors.Default;

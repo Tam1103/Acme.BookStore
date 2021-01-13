@@ -20,13 +20,15 @@ namespace Acme.BookStore.Books
             CreateUpdateBookDto>, //Used to create/update a book
         IBookAppService //implement the IBookAppService
     {
-        private readonly IRepository<Author,Guid> _authorRepository;
+        private readonly IBookRepository _bookRepository;
+        private readonly IAuthorRepository  _authorRepository;
 
         public BookAppService(
-            IRepository<Book, Guid> repository,
-            IRepository<Author,Guid> authorRepository)
-            : base(repository)
+            IBookRepository bookRepository,
+            IAuthorRepository authorRepository)
+            : base(bookRepository)
         {
+            _bookRepository = bookRepository;
             _authorRepository = authorRepository;
             GetPolicyName = BookStorePermissions.Books.Default;
             GetListPolicyName = BookStorePermissions.Books.Default;
@@ -38,7 +40,7 @@ namespace Acme.BookStore.Books
         public override async Task<BookDto> GetAsync(Guid id)
         {
             //Prepare a query to join books and authors
-            var query = from book in Repository
+            var query = from book in _bookRepository
                         join author in _authorRepository on book.AuthorId equals author.Id
                         where book.Id == id
                         select new { book, author };
@@ -59,7 +61,7 @@ namespace Acme.BookStore.Books
         public override async Task<PagedResultDto<BookDto>>GetListAsync(PagedAndSortedResultRequestDto input)
         {
             //Prepare a query to join books and authors
-            var query = from book in Repository
+            var query = from book in _bookRepository
                         join author in _authorRepository on book.AuthorId equals author.Id
                         orderby input.Sorting
                         select new { book, author };
@@ -96,11 +98,34 @@ namespace Acme.BookStore.Books
                 ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
             );
         }
-        public List<BookDto> GetBookListByAuthorId(Guid id)
+        public async Task<PagedResultDto<BookDto>> GetListBookByAuthorId(Guid id, PagedAndSortedResultRequestDto input)
         {
-            var myList =  Repository.Where(s => s.AuthorId == id).ToList();
-            //Execute the query and get the book with author
-            return ObjectMapper.Map<List<Book>, List<BookDto>>(myList);
+            //Prepare a query to join books and authors
+            var query = from book in _bookRepository
+                        where book.AuthorId.Equals(id)
+                        orderby input.Sorting
+                        select new { book };
+            query = query
+                .Skip(input.SkipCount)
+                .Take(input.MaxResultCount);
+
+            //Execute the query and get a list
+            var queryResult = await AsyncExecuter.ToListAsync(query);
+
+            //Convert the query result to a list of BookDto objects
+            var bookDtos = queryResult.Select(x =>
+            {
+                var bookDto = ObjectMapper.Map<Book, BookDto>(x.book);
+                return bookDto;
+            }).ToList();
+
+            //Get the total count with another query
+            var totalCount =  query.Count();
+
+            return new PagedResultDto<BookDto>(
+                totalCount,
+                bookDtos
+            );
         }
     }
 }

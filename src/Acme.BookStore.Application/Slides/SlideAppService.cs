@@ -19,13 +19,14 @@ namespace Acme.BookStore.Slides
         ISlideAppService//implement the ISlideAppService
     {
         private readonly IWebHostEnvironment _iHostEnvironment;
-        //private readonly IAuthorRepository _authorRepository;
+        private readonly ISlideRepository _slideRepository;
         public SlideAppService(
-            IRepository<Slide, Guid> repository,
+            ISlideRepository slideRepository,
             IWebHostEnvironment webHostEnvironment
-         /*   IAuthorRepository authorRepository*/)
-            : base(repository)
+            )
+            : base(slideRepository)
         {
+            _slideRepository = slideRepository;
             _iHostEnvironment = webHostEnvironment;
             GetPolicyName = BookStorePermissions.Slides.Default;
             GetListPolicyName = BookStorePermissions.Slides.Default;
@@ -44,12 +45,12 @@ namespace Acme.BookStore.Slides
                 Detail = detail,
                 Sale = price
             };
-            await Repository.InsertAsync(slide);
+            await _slideRepository.InsertAsync(slide);
             return ObjectMapper.Map<Slide, SlideDto>(slide);
         }
         public async Task UpdateUploadFile(Guid id, IFormFile file, string title, string detail, float price)
         {
-            var slide = await Repository.GetAsync(id);
+            var slide = await _slideRepository.GetAsync(id);
             UploadFile upload = new UploadFile();
             string fileName = upload.ImageUpload(file, _iHostEnvironment);
          
@@ -57,7 +58,7 @@ namespace Acme.BookStore.Slides
             slide.Title = title;
             slide.Sale = price;
             slide.Detail = detail;
-            await Repository.UpdateAsync(slide);
+            await _slideRepository.UpdateAsync(slide);
         }
     }
 }

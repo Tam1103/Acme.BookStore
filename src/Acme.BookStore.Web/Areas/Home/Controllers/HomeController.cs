@@ -1,4 +1,4 @@
-﻿using Acme.BookStore.EntityFrameworkCore;
+﻿using Acme.BookStore.Books;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
@@ -6,15 +6,15 @@ namespace Acme.BookStore.Web.Areas.Home.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly BookStoreDbContext _context;
-        public HomeController(BookStoreDbContext context)
+        private readonly EfCoreBookRepository _bookRepository;
+        public HomeController(EfCoreBookRepository bookRepository)
         {
-            _context = context;
+            _bookRepository = bookRepository;
         }
 
         public IActionResult Index()
         {
-            var product = _context.Books.OrderByDescending(p => p.Id).Take(4).ToList();
+            var product = _bookRepository.OrderByDescending(p => p.Id).Take(4);
             return View("Index", product);
         }
         
