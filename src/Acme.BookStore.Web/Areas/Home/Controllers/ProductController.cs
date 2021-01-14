@@ -41,9 +41,9 @@ namespace Acme.BookStore.Web.Areas.Home.Controllers
             {
                 ViewBag.notification = "Sorry we are updating, Thanks";
             }
-            ViewBag.OnePageOfTasks = new StaticPagedList<BookDto>(product.Items,pageNumber, pageSize, (int)product.TotalCount);
+            //Paging logic has been manually completed in the application service layer, so the paging results need to be constructed manually.
+            ViewBag.Products = new StaticPagedList<BookDto>(product.Items,pageNumber, pageSize, (int)product.TotalCount);
             return View("ProductDisplay");
-
         }
         public IActionResult Details(Guid id)
         {

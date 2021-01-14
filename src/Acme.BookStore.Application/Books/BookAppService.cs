@@ -99,41 +99,20 @@ namespace Acme.BookStore.Books
                 ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
             );
         }
-        //public async Task<PagedResultDto<BookDto>> GetListBookByAuthorId(Guid id, GetBookListDto input)
-        //{
-        //    //Prepare a query to join books and authors
-        //    var query = from book in _bookRepository
-        //                where book.AuthorId.Equals(id)
-        //                orderby input.Sorting
-        //                select new { book };
-        //    query = query
-        //        .Skip(input.SkipCount)
-        //        .Take(input.MaxResultCount);
-        //    //Execute the query and get a list
-        //    var queryResult = await AsyncExecuter.ToListAsync(query);
 
-        //    //Convert the query result to a list of BookDto objects
-        //    var bookDtos = queryResult.Select(x =>
-        //    {
-        //        var bookDto = ObjectMapper.Map<Book, BookDto>(x.book);
-        //        return bookDto;
-        //    }).ToList();
-
-        //    //Get the total count with another query
-        //    var totalCount =  query.Count();
-
-        //    return new PagedResultDto<BookDto>(
-        //        totalCount,
-        //        bookDtos
-        //    );
-        //}
         public PagedResultDto<BookDto> GetListBookByAuthorId(Guid id, GetBookListDto input)
         {
+            //Preliminary filtration
             var query = _bookRepository.Where(book => book.AuthorId == id)
                 .WhereIf(!input.Filter.IsNullOrEmpty(), t => t.Name.Contains(input.Filter));
 
+            //sort
             query = !string.IsNullOrEmpty(input.Sorting) ? query.OrderBy(t => t.CreationTime) : query.OrderByDescending(t => t.CreationTime);
+           
+            //Total number obtained
             var tasksCount = query.Count();
+
+            //ABP provides PageBy paging as an extension method
             var taskList = query.PageBy(input).ToList();
             return new PagedResultDto<BookDto>(tasksCount,
                    ObjectMapper.Map<List<Book>, List<BookDto>>(taskList));

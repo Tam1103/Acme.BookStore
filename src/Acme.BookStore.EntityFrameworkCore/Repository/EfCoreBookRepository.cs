@@ -40,18 +40,5 @@ namespace Acme.BookStore.Books
                 .Take(maxResultCount)
                 .ToListAsync();
         }
-
-        public async Task<List<Book>> GetListBookByAuthorId(Guid id, GetBookListDto input)
-        {
-           return await DbSet.Where(s => s.AuthorId == id)
-                .WhereIf(
-                    !input.Filter.IsNullOrWhiteSpace(),
-                    book => book.Name.Contains(input.Filter)
-                 )
-                .OrderBy(input.Sorting)
-                .Skip(input.SkipCount)
-                .Take(input.MaxResultCount)
-                .ToListAsync();
-        }
     }
 }

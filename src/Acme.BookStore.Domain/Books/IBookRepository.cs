@@ -17,6 +17,5 @@ namespace Acme.BookStore.Books
             string sorting,
             string filter = null
         );
-        Task<List<Book>> GetListBookByAuthorId(Guid id, GetBookListDto input);
     }
 }

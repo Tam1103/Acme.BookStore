@@ -16,10 +16,10 @@ namespace Acme.BookStore.Web
         public void Configure(IApplicationBuilder app)
         {
             app.InitializeApplication();
-            //app.Run(async context =>
-            //{
-            //    context.Response.Redirect("/home/error");
-            //});
+            app.Run(async context =>
+            {
+                context.Response.Redirect("/home/error");
+            });
         }
     }
 }

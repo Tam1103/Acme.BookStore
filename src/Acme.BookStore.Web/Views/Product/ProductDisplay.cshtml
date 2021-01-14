@@ -9,14 +9,14 @@
         height: 230px;
     }
 
-        .pagination {
+    .pagination {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             }
 
-        .pagination li {
+    .pagination li {
             font-size: 16px;
             font-weight: bold;
             padding: 0px 10px;
@@ -53,7 +53,7 @@
     </div>
     <h1 style="text-align:center;color:darkred;font-size:30px;font-weight:bold">@ViewBag.notification</h1>
     <div class="section group">
-        @foreach (var product in @ViewBag.OnePageOfTasks)
+        @foreach (var product in @ViewBag.Products)
         {
             var photo = product.Image;
             <div class="grid_1_of_4 images_1_of_4">
@@ -78,15 +78,10 @@
             </div>
         }
     </div>
-    @{ 
-        var id = ViewBag.category;
-    }
-    @if (ViewBag.OnePageOfTasks.Count >= 1)
+
+    @if (ViewBag.Products.Count >= 1)
     {
-        @Html.PagedListPager((IPagedList)ViewBag.OnePageOfTasks, page => Url.Action("productdisplay", "product", new
+        @Html.PagedListPager((IPagedList)ViewBag.Products, page => Url.Action("productdisplay", "product", new
             { page = page, id = ViewBag.category }))
-
-
-        @*@Html.PagedListPager((IPagedList)ViewBag.OnePageOfTasks, page => Url.Action("PagedList", new { page }));*@
     }
 </div>
