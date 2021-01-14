@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
-using Abp.Application.Services.Dto;
 using Acme.BookStore.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
@@ -20,7 +19,6 @@ namespace Acme.BookStore.Books
             : base(dbContextProvider)
         {
         }
-
         public async Task<Book> FindByNameAsync(string name)
         {
             return await DbSet.FirstOrDefaultAsync(book => book.Name == name);
@@ -43,9 +41,17 @@ namespace Acme.BookStore.Books
                 .ToListAsync();
         }
 
-        public async Task<List<Book>> GetListBookByAuthorId(Guid id, PagedAndSortedResultRequestDto input)
+        public async Task<List<Book>> GetListBookByAuthorId(Guid id, GetBookListDto input)
         {
-            return await DbSet.Where(book => book.AuthorId == id).ToListAsync();
+           return await DbSet.Where(s => s.AuthorId == id)
+                .WhereIf(
+                    !input.Filter.IsNullOrWhiteSpace(),
+                    book => book.Name.Contains(input.Filter)
+                 )
+                .OrderBy(input.Sorting)
+                .Skip(input.SkipCount)
+                .Take(input.MaxResultCount)
+                .ToListAsync();
         }
     }
 }

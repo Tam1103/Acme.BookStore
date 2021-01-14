@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
+using Acme.BookStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,6 +17,6 @@ namespace Acme.BookStore.Books
             string sorting,
             string filter = null
         );
-        Task<List<Book>> GetListBookByAuthorId(Guid id, PagedAndSortedResultRequestDto input);
+        Task<List<Book>> GetListBookByAuthorId(Guid id, GetBookListDto input);
     }
 }

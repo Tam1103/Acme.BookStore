@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Abp.AutoMapper;
 using Acme.BookStore.Authors;
 using Acme.BookStore.Permissions;
 using Volo.Abp.Application.Dtos;
@@ -21,7 +22,7 @@ namespace Acme.BookStore.Books
         IBookAppService //implement the IBookAppService
     {
         private readonly IBookRepository _bookRepository;
-        private readonly IAuthorRepository  _authorRepository;
+        private readonly IAuthorRepository _authorRepository;
 
         public BookAppService(
             IBookRepository bookRepository,
@@ -58,7 +59,7 @@ namespace Acme.BookStore.Books
 
         }
 
-        public override async Task<PagedResultDto<BookDto>>GetListAsync(PagedAndSortedResultRequestDto input)
+        public override async Task<PagedResultDto<BookDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
             //Prepare a query to join books and authors
             var query = from book in _bookRepository
@@ -98,34 +99,44 @@ namespace Acme.BookStore.Books
                 ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
             );
         }
-        public async Task<PagedResultDto<BookDto>> GetListBookByAuthorId(Guid id, PagedAndSortedResultRequestDto input)
+        //public async Task<PagedResultDto<BookDto>> GetListBookByAuthorId(Guid id, GetBookListDto input)
+        //{
+        //    //Prepare a query to join books and authors
+        //    var query = from book in _bookRepository
+        //                where book.AuthorId.Equals(id)
+        //                orderby input.Sorting
+        //                select new { book };
+        //    query = query
+        //        .Skip(input.SkipCount)
+        //        .Take(input.MaxResultCount);
+        //    //Execute the query and get a list
+        //    var queryResult = await AsyncExecuter.ToListAsync(query);
+
+        //    //Convert the query result to a list of BookDto objects
+        //    var bookDtos = queryResult.Select(x =>
+        //    {
+        //        var bookDto = ObjectMapper.Map<Book, BookDto>(x.book);
+        //        return bookDto;
+        //    }).ToList();
+
+        //    //Get the total count with another query
+        //    var totalCount =  query.Count();
+
+        //    return new PagedResultDto<BookDto>(
+        //        totalCount,
+        //        bookDtos
+        //    );
+        //}
+        public PagedResultDto<BookDto> GetListBookByAuthorId(Guid id, GetBookListDto input)
         {
-            //Prepare a query to join books and authors
-            var query = from book in _bookRepository
-                        where book.AuthorId.Equals(id)
-                        orderby input.Sorting
-                        select new { book };
-            query = query
-                .Skip(input.SkipCount)
-                .Take(input.MaxResultCount);
+            var query = _bookRepository.Where(book => book.AuthorId == id)
+                .WhereIf(!input.Filter.IsNullOrEmpty(), t => t.Name.Contains(input.Filter));
 
-            //Execute the query and get a list
-            var queryResult = await AsyncExecuter.ToListAsync(query);
-
-            //Convert the query result to a list of BookDto objects
-            var bookDtos = queryResult.Select(x =>
-            {
-                var bookDto = ObjectMapper.Map<Book, BookDto>(x.book);
-                return bookDto;
-            }).ToList();
-
-            //Get the total count with another query
-            var totalCount =  query.Count();
-
-            return new PagedResultDto<BookDto>(
-                totalCount,
-                bookDtos
-            );
+            query = !string.IsNullOrEmpty(input.Sorting) ? query.OrderBy(t => t.CreationTime) : query.OrderByDescending(t => t.CreationTime);
+            var tasksCount = query.Count();
+            var taskList = query.PageBy(input).ToList();
+            return new PagedResultDto<BookDto>(tasksCount,
+                   ObjectMapper.Map<List<Book>, List<BookDto>>(taskList));
         }
     }
 }

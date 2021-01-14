@@ -1,5 +1,4 @@
 ﻿using System;
-using Abp.Application.Services.Dto;
 using Acme.BookStore.Authors;
 using Acme.BookStore.Books;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +10,12 @@ namespace Acme.BookStore.Web.Areas.Home.Controllers
     {
         private readonly EfCoreAuthorRepository _authorRepository;
         private readonly EfCoreBookRepository _bookRepository;
-        public ProductController(EfCoreBookRepository bookRepository, EfCoreAuthorRepository authorRepository)
+        private readonly BookAppService _bookAppService;
+        public ProductController(EfCoreBookRepository bookRepository, EfCoreAuthorRepository authorRepository, BookAppService bookAppService)
         {
             _bookRepository = bookRepository;
             _authorRepository = authorRepository;
+            _bookAppService = bookAppService;
         }
         private IActionResult Index()
         {
@@ -22,22 +23,27 @@ namespace Acme.BookStore.Web.Areas.Home.Controllers
         }
         public IActionResult ProductDisplay(Guid id, int? page)
         {
+            var category = _authorRepository.GetAsync(id);
+            ViewBag.nameCategory = category.Result.Name;
+            ViewBag.category = id;
+
+            //linage
             var pageSize = 2;
             var pageNumber = page ?? 1;//How many pages
 
-            var filter = new PagedAndSortedResultRequestDto
+            var filter = new GetBookListDto
             {
                 SkipCount = (pageNumber - 1) * pageSize,//Ignore the number
                 MaxResultCount = pageSize
             };
-            var category = _authorRepository.GetAsync(id);
-            ViewBag.nameCategory = category.Result.Name;
-            var product = _bookRepository.GetListBookByAuthorId(id,filter);
-            if (product.Result.Count == 0)
+            var product = _bookAppService.GetListBookByAuthorId(id,filter);
+            if (product.TotalCount == 0)
             {
                 ViewBag.notification = "Sorry we are updating, Thanks";
             }
-            return View("ProductDisplay",product);
+            ViewBag.OnePageOfTasks = new StaticPagedList<BookDto>(product.Items,pageNumber, pageSize, (int)product.TotalCount);
+            return View("ProductDisplay");
+
         }
         public IActionResult Details(Guid id)
         {

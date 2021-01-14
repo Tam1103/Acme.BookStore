@@ -15,6 +15,6 @@ namespace Acme.BookStore.Books
     {
         // ADD the NEW METHOD
         Task<ListResultDto<AuthorLookupDto>> GetAuthorLookupAsync();
-        Task<PagedResultDto<BookDto>> GetListBookByAuthorId(Guid id, PagedAndSortedResultRequestDto input);
+        PagedResultDto<BookDto> GetListBookByAuthorId(Guid id, GetBookListDto input);
     }
 }

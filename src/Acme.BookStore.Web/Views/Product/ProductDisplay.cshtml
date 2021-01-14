@@ -4,18 +4,17 @@
 
 @using X.PagedList
 @using X.PagedList.Mvc.Core
-
 <style>
     .grid_1_of_4 img {
         height: 230px;
     }
 
-    .pagination {
+        .pagination {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    }
+            }
 
         .pagination li {
             font-size: 16px;
@@ -31,7 +30,7 @@
         font-size: 30px;
         color: darkred;
     }
-
+    /**/
     .grid_1_of_4 img {
         height: 230px;
         width: 100%;
@@ -54,7 +53,7 @@
     </div>
     <h1 style="text-align:center;color:darkred;font-size:30px;font-weight:bold">@ViewBag.notification</h1>
     <div class="section group">
-        @foreach (var product in Model.Result)
+        @foreach (var product in @ViewBag.OnePageOfTasks)
         {
             var photo = product.Image;
             <div class="grid_1_of_4 images_1_of_4">
@@ -79,7 +78,15 @@
             </div>
         }
     </div>
-    <div class="pagination">
-        @*@Html.PagedListPager((IPagedList)Model, page => Url.Action("PagedList", new { page }))*@
-    </div>
+    @{ 
+        var id = ViewBag.category;
+    }
+    @if (ViewBag.OnePageOfTasks.Count >= 1)
+    {
+        @Html.PagedListPager((IPagedList)ViewBag.OnePageOfTasks, page => Url.Action("productdisplay", "product", new
+            { page = page, id = ViewBag.category }))
+
+
+        @*@Html.PagedListPager((IPagedList)ViewBag.OnePageOfTasks, page => Url.Action("PagedList", new { page }));*@
+    }
 </div>
