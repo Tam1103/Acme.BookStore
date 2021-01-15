@@ -1,21 +1,31 @@
 ﻿using Acme.BookStore.Books;
+using Acme.BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
+using X.PagedList;
 
 namespace Acme.BookStore.Web.Areas.Home.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly EfCoreBookRepository _bookRepository;
-        public HomeController(EfCoreBookRepository bookRepository)
+        private readonly BookAppService _bookAppService;
+        public HomeController(BookAppService bookAppService)
         {
-            _bookRepository = bookRepository;
+            _bookAppService = bookAppService;
         }
-
-        public IActionResult Index()
+        public IActionResult Public(int? page)
         {
-            var product = _bookRepository.OrderByDescending(p => p.Id).Take(4);
-            return View("Index", product);
+            Paging.PageNumber = page ?? 1;
+            Paging.Filter();
+
+            var product = _bookAppService.GetListValue(Paging.filter);
+            if (product.TotalCount == 0)
+            {
+                ViewBag.notification = "Sorry we are updating, Thanks";
+            }
+            //Paging logic has been manually completed in the application service layer, so the paging results need to be constructed manually.
+            var products = new StaticPagedList<BookDto>(product.Items, Paging.PageNumber, Paging.maxPageSize, (int)product.TotalCount);
+
+            return View("public", products);
         }
         
         public IActionResult Error()

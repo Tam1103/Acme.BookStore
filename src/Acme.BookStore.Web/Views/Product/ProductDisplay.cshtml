@@ -4,43 +4,6 @@
 
 @using X.PagedList
 @using X.PagedList.Mvc.Core
-<style>
-    .grid_1_of_4 img {
-        height: 230px;
-    }
-
-    .pagination {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            }
-
-    .pagination li {
-            font-size: 16px;
-            font-weight: bold;
-            padding: 0px 10px;
-        }
-
-        .pagination a {
-            color: #808080;
-        }
-
-    .PagedList-skipToNext a, .PagedList-skipToPrevious a {
-        font-size: 30px;
-        color: darkred;
-    }
-    /**/
-    .grid_1_of_4 img {
-        height: 230px;
-        width: 100%;
-    }
-
-    .grid_1_of_4 h2 {
-        height: 40px;
-        overflow: hidden;
-    }
-</style>
 
 <div class="content">
     <div class="content_top">
@@ -53,7 +16,7 @@
     </div>
     <h1 style="text-align:center;color:darkred;font-size:30px;font-weight:bold">@ViewBag.notification</h1>
     <div class="section group">
-        @foreach (var product in @ViewBag.Products)
+        @foreach (var product in @ViewBag.products)
         {
             var photo = product.Image;
             <div class="grid_1_of_4 images_1_of_4">
@@ -79,9 +42,9 @@
         }
     </div>
 
-    @if (ViewBag.Products.Count >= 1)
+    @if (ViewBag.products.Count >= 1)
     {
-        @Html.PagedListPager((IPagedList)ViewBag.Products, page => Url.Action("productdisplay", "product", new
+        @Html.PagedListPager((IPagedList)ViewBag.products, page => Url.Action("productdisplay", "product", new
             { page = page, id = ViewBag.category }))
     }
 </div>

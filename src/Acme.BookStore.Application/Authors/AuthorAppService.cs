@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Acme.BookStore.Permissions;
+using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 
 
 namespace Acme.BookStore.Authors
@@ -26,6 +27,13 @@ namespace Acme.BookStore.Authors
             CreatePolicyName = BookStorePermissions.Authors.Create;
             UpdatePolicyName = BookStorePermissions.Authors.Edit;
             DeletePolicyName = BookStorePermissions.Authors.Delete;
+        }
+
+
+        [AllowAnonymous]
+        public override Task<AuthorDto> GetAsync(Guid id)
+        {
+            return base.GetAsync(id);
         }
     }
 }

@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿using Acme.BookStore.Books;
 namespace Acme.BookStore.Models
 {
     public class Paging
     {
-        const int maxPageSize = 50;
-        public int PageNumber { get; set; } = 1;
-        private int _pageSize = 10;
-        public int PageSize
+        public const int maxPageSize = 4;
+        public static int PageNumber { get; set; } = 1;
+
+        public static GetBookListDto filter;
+
+        public static void Filter()
         {
-            get
+            filter = new GetBookListDto
             {
-                return _pageSize;
-            }
-            set
-            {
-                _pageSize = (value > maxPageSize) ? maxPageSize : value;
-            }
+                SkipCount = (PageNumber - 1) * maxPageSize,//Ignore the number
+                MaxResultCount = maxPageSize
+            };
         }
     }
 }

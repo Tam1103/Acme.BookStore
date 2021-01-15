@@ -1,11 +1,11 @@
 ﻿using Acme.BookStore.Permissions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 
 namespace Acme.BookStore.Slides
 {
@@ -34,6 +34,7 @@ namespace Acme.BookStore.Slides
             UpdatePolicyName = BookStorePermissions.Slides.Edit;
             DeletePolicyName = BookStorePermissions.Slides.Delete;
         }
+
         public async Task<SlideDto> CreateUploadFile(IFormFile file, string title, string detail, float price)
         {
             UploadFile upload = new UploadFile();
@@ -48,6 +49,10 @@ namespace Acme.BookStore.Slides
             await _slideRepository.InsertAsync(slide);
             return ObjectMapper.Map<Slide, SlideDto>(slide);
         }
+
+
+        [HttpPatch]
+        [Route("/api/app/slide/UpdateUploadFile/{id}")]
         public async Task UpdateUploadFile(Guid id, IFormFile file, string title, string detail, float price)
         {
             var slide = await _slideRepository.GetAsync(id);
