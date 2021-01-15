@@ -1,8 +1,5 @@
 ﻿using Acme.BookStore.Authors;
-using Acme.BookStore.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Acme.BookStore.Web.Areas.Home.Components

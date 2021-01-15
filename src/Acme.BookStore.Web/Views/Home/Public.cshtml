@@ -1,16 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Public";
 }
-<style>
-    .grid_1_of_4 img {
-        height: 230px;
-        width: 100%;
-    }
-    .grid_1_of_4 h2{
-        height:40px;
-        overflow:hidden;
-    }
-</style>
+
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
 <div class="content">
     <div class="content_top">
         <div class="heading">
@@ -44,3 +38,9 @@
         }
     </div>
 </div>
+
+@if (Model.Count >= 1)
+{
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("public","home", new
+    { page = page }))
+}

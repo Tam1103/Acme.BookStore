@@ -64,7 +64,7 @@
     <None Include="Areas\_ViewImports.cshtml" />
     <None Include="Pages\Books\Index.cshtml" />
     <None Include="Pages\Slides\Index.cshtml" />
-    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\Public.cshtml" />
     <None Include="Views\Product\Details.cshtml" />
     <None Include="Views\Product\ProductDisplay.cshtml" />
     <None Include="Views\Shared\Components\Category\Index.cshtml" />
