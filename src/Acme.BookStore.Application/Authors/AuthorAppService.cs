@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Acme.BookStore.Permissions;
+using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
-
 
 namespace Acme.BookStore.Authors
 {
@@ -16,15 +16,32 @@ namespace Acme.BookStore.Authors
            CreateUpdateAuthorDto>, //Used to create/update a author
        IAuthorAppService //implement the IAppService
     {
+        private readonly IAuthorRepository _authorRepository;
         public AuthorAppService(
-            IRepository<Author, Guid> repository)
-            : base(repository)
+            IAuthorRepository authorRepository
+            )
+            : base(authorRepository)
         {
+            _authorRepository = authorRepository;
             GetPolicyName = BookStorePermissions.Authors.Default;
             GetListPolicyName = BookStorePermissions.Authors.Default;
             CreatePolicyName = BookStorePermissions.Authors.Create;
             UpdatePolicyName = BookStorePermissions.Authors.Edit;
             DeletePolicyName = BookStorePermissions.Authors.Delete;
+        }
+
+
+        [AllowAnonymous]
+        public override async Task<AuthorDto> GetAsync(Guid id)
+        {
+            var author = await _authorRepository.GetAsync(id);
+            return ObjectMapper.Map<Author, AuthorDto>(author);
+        }
+        
+        [AllowAnonymous]
+        public override Task<PagedResultDto<AuthorDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        {
+            return base.GetListAsync(input);
         }
     }
 }

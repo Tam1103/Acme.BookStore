@@ -1,11 +1,11 @@
 ﻿using Acme.BookStore.Permissions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 
 namespace Acme.BookStore.Slides
 {
@@ -19,13 +19,14 @@ namespace Acme.BookStore.Slides
         ISlideAppService//implement the ISlideAppService
     {
         private readonly IWebHostEnvironment _iHostEnvironment;
-        //private readonly IAuthorRepository _authorRepository;
+        private readonly ISlideRepository _slideRepository;
         public SlideAppService(
-            IRepository<Slide, Guid> repository,
+            ISlideRepository slideRepository,
             IWebHostEnvironment webHostEnvironment
-         /*   IAuthorRepository authorRepository*/)
-            : base(repository)
+            )
+            : base(slideRepository)
         {
+            _slideRepository = slideRepository;
             _iHostEnvironment = webHostEnvironment;
             GetPolicyName = BookStorePermissions.Slides.Default;
             GetListPolicyName = BookStorePermissions.Slides.Default;
@@ -33,6 +34,7 @@ namespace Acme.BookStore.Slides
             UpdatePolicyName = BookStorePermissions.Slides.Edit;
             DeletePolicyName = BookStorePermissions.Slides.Delete;
         }
+
         public async Task<SlideDto> CreateUploadFile(IFormFile file, string title, string detail, float price)
         {
             UploadFile upload = new UploadFile();
@@ -44,12 +46,16 @@ namespace Acme.BookStore.Slides
                 Detail = detail,
                 Sale = price
             };
-            await Repository.InsertAsync(slide);
+            await _slideRepository.InsertAsync(slide);
             return ObjectMapper.Map<Slide, SlideDto>(slide);
         }
+
+
+        [HttpPatch]
+        [Route("/api/app/slide/UpdateUploadFile/{id}")]
         public async Task UpdateUploadFile(Guid id, IFormFile file, string title, string detail, float price)
         {
-            var slide = await Repository.GetAsync(id);
+            var slide = await _slideRepository.GetAsync(id);
             UploadFile upload = new UploadFile();
             string fileName = upload.ImageUpload(file, _iHostEnvironment);
          
@@ -57,7 +63,7 @@ namespace Acme.BookStore.Slides
             slide.Title = title;
             slide.Sale = price;
             slide.Detail = detail;
-            await Repository.UpdateAsync(slide);
+            await _slideRepository.UpdateAsync(slide);
         }
     }
 }
