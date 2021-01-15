@@ -37,9 +37,9 @@ namespace Acme.BookStore.Authors
             var author = await _authorRepository.GetAsync(id);
             return ObjectMapper.Map<Author, AuthorDto>(author);
         }
-
+        
         [AllowAnonymous]
-        public override Task<PagedResultDto<AuthorDto>> GetListAsync(PagedAndSortedResultRequestDto? input)
+        public override Task<PagedResultDto<AuthorDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
             return base.GetListAsync(input);
         }
