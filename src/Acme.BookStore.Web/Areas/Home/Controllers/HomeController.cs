@@ -1,11 +1,12 @@
 ﻿using Acme.BookStore.Books;
 using Acme.BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc;
 using X.PagedList;
 
 namespace Acme.BookStore.Web.Areas.Home.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AbpController
     {
         private readonly BookAppService _bookAppService;
         public HomeController(BookAppService bookAppService)

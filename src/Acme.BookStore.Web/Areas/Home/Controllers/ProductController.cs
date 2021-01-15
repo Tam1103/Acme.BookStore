@@ -3,11 +3,12 @@ using Acme.BookStore.Authors;
 using Acme.BookStore.Books;
 using Acme.BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc;
 using X.PagedList;
 
 namespace Acme.BookStore.Web.Areas.Home.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : AbpController
     {
         private readonly AuthorAppService _authorAppService;
         private readonly BookAppService _bookAppService;
