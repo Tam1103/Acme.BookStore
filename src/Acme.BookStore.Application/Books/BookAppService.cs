@@ -98,7 +98,7 @@ namespace Acme.BookStore.Books
                 ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
             );
         }
-        public async Task<PagedResultDto<BookDto>> GetListBookByAuthorId(Guid id, PagedAndSortedResultRequestDto input)
+        public async Task<PagedResultDto<BookDto>> GetListBookByAuthorId(Guid id, GetBookListDto input)
         {
             //Prepare a query to join books and authors
             var query = from book in _bookRepository
