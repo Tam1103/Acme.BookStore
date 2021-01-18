@@ -26,7 +26,7 @@
     </script>
 
 </head>
-
+<script src="~/Views/Product/Details.js"></script>
 <style>
     .header_slide {
         display: none;
@@ -58,16 +58,16 @@
                                 <div id="products">
                                     <div class="slides_container">
                                         @{
-                                            var photo = ViewBag.featuredPhoto;
-                                            var feturedPhoto = photo == null ? "default.png" : photo;
-                                            <a href="~/images/@feturedPhoto" onclick="return false;" target="_blank"><img src="~/images/@feturedPhoto" alt=" " /></a>
-                                        }
+                                                var photo = ViewBag.featuredPhoto;
+                                                var feturedPhoto = photo == null ? "default.png" : photo;
+                                                <a href="~/images/@feturedPhoto" onclick="return false;" target="_blank"><img src="~/images/@feturedPhoto" alt=" " /></a>
+                                            }
                                     </div>
                                     <ul class="pagination">
                                         @{
-                                            feturedPhoto = photo == null ? "default.png" : photo;
-                                            <li><a href="#"><img src="~/images/@feturedPhoto" alt=" " /></a></li>
-                                        }
+                                                feturedPhoto = photo == null ? "default.png" : photo;
+                                                <li><a href="#"><img src="~/images/@feturedPhoto" alt=" " /></a></li>
+                                            }
                                     </ul>
                                 </div>
                             </div>

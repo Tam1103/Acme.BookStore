@@ -40,6 +40,8 @@ namespace Acme.BookStore.Web.Areas.Home.Controllers
             ViewBag.products = new StaticPagedList<BookDto>(product.Items,Paging.PageNumber, Paging.maxPageSize, (int)product.TotalCount);
             return View("ProductDisplay");
         }
+
+  
         public IActionResult Details(Guid id)
         {
             var product = _bookAppService.GetAsync(id);
