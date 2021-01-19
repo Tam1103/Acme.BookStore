@@ -1557,6 +1557,9 @@ body {
 		padding:0;
 		margin:5px 0;
 	}
+	.header_bottom_right img{
+	 height: 400px;
+	}
 	.price-details p span.rupees{
 		font-size:0.96em;
 	}

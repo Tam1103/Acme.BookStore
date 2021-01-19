@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Acme.BookStore.Authors;
 using Acme.BookStore.Permissions;
+using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
-using Volo.Abp.Domain.Repositories;
 
 namespace Acme.BookStore.Books
 {
@@ -20,13 +20,15 @@ namespace Acme.BookStore.Books
             CreateUpdateBookDto>, //Used to create/update a book
         IBookAppService //implement the IBookAppService
     {
-        private readonly IRepository<Author,Guid> _authorRepository;
+        private readonly IBookRepository _bookRepository;
+        private readonly IAuthorRepository _authorRepository;
 
         public BookAppService(
-            IRepository<Book, Guid> repository,
-            IRepository<Author,Guid> authorRepository)
-            : base(repository)
+            IBookRepository bookRepository,
+            IAuthorRepository authorRepository)
+            : base(bookRepository)
         {
+            _bookRepository = bookRepository;
             _authorRepository = authorRepository;
             GetPolicyName = BookStorePermissions.Books.Default;
             GetListPolicyName = BookStorePermissions.Books.Default;
@@ -38,7 +40,7 @@ namespace Acme.BookStore.Books
         public override async Task<BookDto> GetAsync(Guid id)
         {
             //Prepare a query to join books and authors
-            var query = from book in Repository
+            var query = from book in _bookRepository
                         join author in _authorRepository on book.AuthorId equals author.Id
                         where book.Id == id
                         select new { book, author };
@@ -56,10 +58,10 @@ namespace Acme.BookStore.Books
 
         }
 
-        public override async Task<PagedResultDto<BookDto>>GetListAsync(PagedAndSortedResultRequestDto input)
+        public override async Task<PagedResultDto<BookDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
             //Prepare a query to join books and authors
-            var query = from book in Repository
+            var query = from book in _bookRepository
                         join author in _authorRepository on book.AuthorId equals author.Id
                         orderby input.Sorting
                         select new { book, author };
@@ -87,7 +89,21 @@ namespace Acme.BookStore.Books
                 bookDtos
             );
         }
+        public PagedResultDto<BookDto> GetListValue(GetBookListDto input)
+        {
+            var query = _bookRepository.WhereIf(!input.Filter.IsNullOrEmpty(), t => t.Name.Contains(input.Filter));
 
+            //sort
+            query = !string.IsNullOrEmpty(input.Sorting) ? query.OrderBy(t => t.CreationTime) : query.OrderByDescending(t => t.CreationTime);
+
+            //Total number obtained
+            var tasksCount = query.Count();
+
+            //ABP provides PageBy paging as an extension method
+            var taskList = query.PageBy(input).ToList();
+            return new PagedResultDto<BookDto>(tasksCount,
+                   ObjectMapper.Map<List<Book>, List<BookDto>>(taskList));
+        }
         public async Task<ListResultDto<AuthorLookupDto>> GetAuthorLookupAsync()
         {
             var authors = await _authorRepository.GetListAsync();
@@ -96,11 +112,24 @@ namespace Acme.BookStore.Books
                 ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
             );
         }
-        public List<BookDto> GetBookListByAuthorId(Guid id)
+
+        [Route("/api/app/book/bookByAuthorId/{id}")]
+        public PagedResultDto<BookDto> GetListBookByAuthorId(Guid id, GetBookListDto input)
         {
-            var myList =  Repository.Where(s => s.AuthorId == id).ToList();
-            //Execute the query and get the book with author
-            return ObjectMapper.Map<List<Book>, List<BookDto>>(myList);
+            //Preliminary filtration
+            var query = _bookRepository.Where(book => book.AuthorId == id)
+                .WhereIf(!input.Filter.IsNullOrEmpty(), t => t.Name.Contains(input.Filter));
+
+            //sort
+            query = !string.IsNullOrEmpty(input.Sorting) ? query.OrderBy(t => t.CreationTime) : query.OrderByDescending(t => t.CreationTime);
+
+            //Total number obtained
+            var tasksCount = query.Count();
+
+            //ABP provides PageBy paging as an extension method
+            var taskList = query.PageBy(input).ToList();
+            return new PagedResultDto<BookDto>(tasksCount,
+                   ObjectMapper.Map<List<Book>, List<BookDto>>(taskList));
         }
     }
 }

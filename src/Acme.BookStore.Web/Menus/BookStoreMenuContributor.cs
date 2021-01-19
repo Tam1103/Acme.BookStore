@@ -67,16 +67,6 @@ namespace Acme.BookStore.Web.Menus
             }
 
             context.Menu.AddItem(bookStoreMenu);
-
-            //#region Category
-            //    var categoryStoreMenu = new ApplicationMenuItem(
-            //    "categoryStoreMenu",
-            //    l["Menu:Category"],
-            //    icon: "fa fa-book",
-            //    url: "/Categorys"
-            //);
-            //    context.Menu.AddItem(categoryStoreMenu);
-            //#endregion
         }
     }
 }

@@ -1,0 +1,32 @@
+﻿
+.pagination {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.pagination li {
+        font-size: 16px;
+        font-weight: bold;
+        padding: 0px 10px;
+    }
+
+.pagination a {
+        color: #808080;
+    }
+
+.PagedList-skipToNext a, .PagedList-skipToPrevious a {
+    font-size: 30px;
+    color: darkred;
+}
+
+.grid_1_of_4 img {
+    height: 230px;
+    width: 100%;
+}
+
+.grid_1_of_4 h2 {
+    height: 40px;
+    overflow: hidden;
+}

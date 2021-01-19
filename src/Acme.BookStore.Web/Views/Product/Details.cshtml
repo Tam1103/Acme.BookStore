@@ -1,11 +1,6 @@
-﻿
-@model Acme.BookStore.Books.Book
-
-@using Acme.BookStore
-@{
+﻿@{
     ViewData["Title"] = "Details";
 }
-
 <head>
     <link href="~/User/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <script type="text/javascript" src="~/User/js/jquery-1.7.2.min.js"></script>
@@ -66,11 +61,11 @@
                                             var photo = ViewBag.featuredPhoto;
                                             var feturedPhoto = photo == null ? "default.png" : photo;
                                             <a href="~/images/@feturedPhoto" onclick="return false;" target="_blank"><img src="~/images/@feturedPhoto" alt=" " /></a>
-                                            } 
+                                        }
                                     </div>
                                     <ul class="pagination">
                                         @{
-                                             feturedPhoto = photo == null ? "default.png" : photo;
+                                            feturedPhoto = photo == null ? "default.png" : photo;
                                             <li><a href="#"><img src="~/images/@feturedPhoto" alt=" " /></a></li>
                                         }
                                     </ul>
@@ -79,12 +74,11 @@
                         </div>
                     </div>
                     <div class="desc span_3_of_2">
-                        <h2>@Model.Name</h2>
-                        <p>@Model.Name</p>
+                        <h2>@Model.Result.Name</h2>
+                        <p>@Model.Result.Name</p>
                         <div class="price">
-                            <p>Price: <span>@String.Format("{0:#,###}", Model.Price)$</span></p>
+                            <p>Price: <span>@String.Format("{0:#,###}", Model.Result.Price)$</span></p>
                         </div>
-                        
                         <div class="share-desc">
                             <div class="share">
                                 <p>Share Product :</p>
@@ -114,7 +108,7 @@
                         </ul>
                         <div class="resp-tabs-container">
                             <div class="product-desc">
-                                <p>@Model.Name</p>
+                                <p>@Model.Result.Name</p>
                             </div>
 
                             <div class="review">
@@ -124,7 +118,7 @@
                                     <li>Value :<a href="#"><img src="~/User/images/value-rating.png" alt="" /></a></li>
                                     <li>Quality :<a href="#"><img src="~/User/images/quality-rating.png" alt="" /></a></li>
                                 </ul>
-                                <p>@Model.Name</p>
+                                <p>@Model.Result.Name</p>
                                 <div class="your-review">
                                     <h3>How Do You Rate This Product?</h3>
                                     <p>Write Your Own Review?</p>

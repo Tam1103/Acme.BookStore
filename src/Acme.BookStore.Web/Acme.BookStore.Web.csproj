@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AbpEx.Web.Mvc" Version="1.0.4" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
@@ -39,6 +40,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="X.PagedList.Mvc" Version="8.0.7" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.0.7" />
   </ItemGroup>
 
@@ -62,7 +64,7 @@
     <None Include="Areas\_ViewImports.cshtml" />
     <None Include="Pages\Books\Index.cshtml" />
     <None Include="Pages\Slides\Index.cshtml" />
-    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\Public.cshtml" />
     <None Include="Views\Product\Details.cshtml" />
     <None Include="Views\Product\ProductDisplay.cshtml" />
     <None Include="Views\Shared\Components\Category\Index.cshtml" />

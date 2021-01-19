@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
 
 namespace Acme.BookStore.Web
 {
@@ -16,18 +13,10 @@ namespace Acme.BookStore.Web
         public void Configure(IApplicationBuilder app)
         {
             app.InitializeApplication();
-
-            app.UseEndpoints(endpoints =>
+            app.Run(async context =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=home}/{action=error}/{id?}");
+                context.Response.Redirect("/home/error");
             });
-
-            //app.Run(async context =>
-            //{
-            //     context.Response.Redirect("/home/error");
-            //});
         }
     }
 }
